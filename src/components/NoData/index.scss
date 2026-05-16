@@ -1,0 +1,21 @@
+.noData {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+
+    img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-bottom: 10px;
+    }
+
+    .txt {
+        margin-top: 12px;
+        font-weight: 400;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.35);
+    }
+}

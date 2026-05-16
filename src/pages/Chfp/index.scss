@@ -1,0 +1,503 @@
+.ChfpPage {
+    background: #000;
+    height: 100vh;
+
+    .contentPage {
+        padding-top: 60px;
+        height: 100vh;
+        overflow-y: scroll;
+        padding-inline: 14px;
+        padding-bottom: 40px;
+
+        .liCaiBox {
+            background-image: url('@/assets/Chfp/bg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            padding: 16px 12px;
+
+            .headerBox {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftTxtOption {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+
+                .rightOption {
+                    display: flex;
+                    align-items: center;
+
+                    .txt {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .queryIcon {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+            }
+
+            .AmountOption {
+                margin-top: 4px;
+
+                .num {
+                    font-weight: 500;
+                    font-size: 24px;
+                    color: #FFFFFF;
+                }
+
+                .amountType {
+                    margin-left: 4px;
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: #FFFFFF;
+                }
+            }
+
+            .btnBox {
+                text-align: center;
+                margin-top: 23px;
+                background-image: url('@/assets/Chfp/btnBg.png');
+                background-size: 100% 100%;
+                padding-block: 9px;
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+
+            .btnList {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .btn {
+                    width: 155px;
+                    height: 40px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                }
+
+                .btnOne {
+                    border: 1px solid #FFFFFF;
+                    background: none;
+                    font-weight: 500;
+                    color: #FFFFFF;
+                }
+
+                .btnTwo {
+                    font-weight: 500;
+
+                    color: rgba(0, 0, 0, 0.85);
+                    background: #FFFFFF;
+                }
+            }
+        }
+
+        .reinvestmentBox {
+            padding: 16px 12px;
+            margin-top: 12px;
+            background-image: url('@/assets/Chfp/twoBg.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            .headerOption {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftTxt {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+
+                .rightOption {
+                    display: flex;
+                    align-items: center;
+
+                    .aboutIcon {
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    .txt {
+                        margin-right: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .amountOption {
+                .num {
+                    font-weight: 500;
+                    font-size: 24px;
+                    color: #FFFFFF;
+                }
+
+                .typeAmount {
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: #FFFFFF;
+                }
+            }
+
+            .hintTxt {
+                margin-top: 16px;
+                font-weight: 400;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.65);
+            }
+             .btnList {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .btn {
+                    width: 155px;
+                    height: 40px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                }
+
+                .btnOne {
+                    border: 1px solid #FFFFFF;
+                    background: none;
+                    font-weight: 500;
+                    color: #FFFFFF;
+                }
+
+                .btnTwo {
+                    font-weight: 500;
+
+                    color: rgba(0, 0, 0, 0.85);
+                    background: #FFFFFF;
+                }
+            }
+        }
+
+        .shouYiLvBox {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            border-radius: 8px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 20px 12px;
+
+            .leftOption {
+                .spn1 {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.65);
+                }
+
+                .spn2 {
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #FFFFFF;
+                }
+            }
+
+            .rightOption {
+                display: flex;
+                align-items: center;
+
+                .spn1 {
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.65);
+                }
+
+                .queryIcon {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        .shouYiBox {
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 240px;
+            box-sizing: border-box;
+
+            .usdtBox {
+                width: 100%;
+                margin-right: 12px;
+                background: #1A1D25;
+                border-radius: 8px;
+                padding: 16px 12px;
+
+                .usdtTop {
+                    display: flex;
+                    align-items: center;
+
+                    .usdtIcon {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .usdtTxt {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .centerBox {
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    margin-top: 12px;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #FFFFFF;
+
+                    .amount {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .yesterDay {
+                        margin-top: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #F8C001;
+                    }
+                }
+
+                .endOption {
+                    margin-top: 16px;
+
+                    .endHintTxt {
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+
+                    .endHintNum {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .btnGet {
+                        margin-top: 12px;
+                        width: 100%;
+                        height: 40px;
+                        background: rgba(255, 255, 255, 0.25);
+                        border-radius: 20px;
+                    }
+                }
+            }
+
+            .hzBox {
+                width: 100%;
+                background: #1A1D25;
+                border-radius: 8px;
+                padding: 16px 12px;
+
+                .usdtTop {
+                    display: flex;
+                    align-items: center;
+
+                    .usdtIcon {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .usdtTxt {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .centerBox {
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    margin-top: 12px;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #FFFFFF;
+
+                    .amount {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .yesterDay {
+                        margin-top: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #F8C001;
+                    }
+                }
+
+                .endOption {
+                    margin-top: 16px;
+
+                    .endHintNums {
+                        font-weight: 400;
+                        font-size: 14px;
+                        margin-bottom: 40px;
+                        color: rgba(255, 255, 255, 0.45);
+                    }
+
+                    .btnList {
+                        width: 100%;
+                        height: 40px;
+                        color: #fff;
+                        background: none;
+                        border-radius: 20px;
+                    }
+
+                    .btnSuccess {
+                        background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+                    }
+                }
+            }
+        }
+
+        .listBox {
+            margin-top: 20px;
+
+            .listHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftTitle {
+                    font-weight: 600;
+                    font-size: 18px;
+                    color: #FFFFFF;
+                }
+
+                .rightOption {
+                    display: flex;
+                    align-items: center;
+
+                    .rightTxt {
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .rightIcon {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+            }
+
+            .listBorder {
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                margin-top: 11px;
+                padding: 16px 12px;
+
+                .headerOption {
+                    display: flex;
+                    align-items: center;
+
+                    .headerItem {
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.45);
+                    }
+
+                    .dateTimeHeader {
+                        width: 30%;
+                        font-weight: 400;
+                    }
+
+                    .accountHeader {
+                        text-align: left;
+                        width: 22%;
+                        font-weight: 400;
+                    }
+
+                    .typeHeader {
+                        text-align: center;
+                        width: 22%;
+                        font-weight: 400;
+                    }
+
+                    .amountHeader {
+                        text-align: right;
+                        width: 22%;
+                        font-weight: 400;
+                    }
+                }
+
+                .listData {
+                    .listOption {
+                        display: flex;
+                        margin-top: 16px;
+                        padding-bottom: 16px;
+                        border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+
+                        .dateTime {
+                            width: 30%;
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+
+                        .account {
+                            text-align: left;
+                            width: 22%;
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+
+                        .type {
+                            text-align: center;
+                            width: 22%;
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+
+                        .amount {
+                            text-align: right;
+                            width: 22%;
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #fff;
+                        }
+
+                        .error {
+                            color: #DA2C2C;
+                        }
+
+                        .success {
+                            color: #F8C001;
+                        }
+
+                    }
+
+                    .NoDataOption {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,35 @@
+.headerTopBox {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    padding-top: 14px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    height: 44px;
+    width: 100%;
+    padding-inline: 14px;
+    background: #000;
+    .leftIcon {
+        flex: none;
+        width: 28px;
+        height: 28px;
+    }
+
+    .centerTxt {
+        flex: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 16px;
+        color: #FFFFFF;
+    }
+
+    .rightIcon {
+        flex: none;
+        width: 28px;
+        height: 28px;
+    }
+}

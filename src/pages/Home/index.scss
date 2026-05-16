@@ -1,0 +1,172 @@
+.HomePage {
+    background: #000;
+    min-height: 100vh;
+    background-image: url('@/assets/basic/bg.png');
+    background-size: 100% 500px;
+    background-repeat: no-repeat;
+
+    .HeaderTopBox {
+        padding-top: 24px;
+        padding-inline: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .menuLeft {
+            width: 24px;
+            height: 24px;
+        }
+
+        .logoContent {
+            width: 155px;
+            height: 32px;
+        }
+
+        .rightWallet {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .hintBox {
+        padding-top: 50px;
+        padding-inline: 16px;
+
+        .welcomeTxt {
+            font-weight: bold;
+            font-size: 24px;
+            color: #FFFFFF;
+        }
+
+        .hintTxts {
+            margin-top: 12px;
+            font-weight: 400;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .tagBox {
+            margin-top: 38px;
+            display: flex;
+            flex-wrap: wrap;
+
+            .tagItem {
+                display: flex;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 20px;
+                padding: 8px 16px;
+                margin-right: 12px;
+                margin-bottom: 16px;
+
+                .iconItem {
+                    width: 24px;
+                    height: 24px;
+                }
+
+                .txtItem {
+                    margin-left: 8px;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+            }
+
+        }
+    }
+
+    .fixedBox {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        background: #000;
+        padding-inline: 14px;
+
+        .keyWordListBox {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .keyWordListOption {
+            display: flex;
+            white-space: nowrap;
+
+            .keWordItem {
+                display: flex;
+                align-items: center;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 11px 10px;
+                margin-right: 8px;
+
+                .itemIcon {
+                    width: 18px;
+                    height: 18px;
+                }
+
+                .itemTxt {
+                    margin-left: 4px;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .inputBox {
+            margin-top: 12px;
+            height: 50px;
+            background-image: url('@/assets/Home/inputBg.png');
+            background-size: 100% 48px;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .upLoadImgIcon {
+                margin-left: 12px;
+                width: 24px;
+                height: 24px;
+            }
+
+            .inputOption {
+                flex: 1;
+                margin-left: 16px;
+                font-weight: 400;
+                font-size: 16px;
+
+                // color: rgba(255, 255, 255, 0.65);
+                .inputStyle input::placeholder {
+                    color: rgba(255, 255, 255, 0.65);
+
+                }
+
+                .inputStyle input {
+                    color: #fff;
+                    font-weight: 400;
+                }
+            }
+
+            .sendIcon {
+                width: 40px;
+                height: 40px;
+                margin-right: 4px;
+            }
+        }
+
+        .endOption {
+            margin-block: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .txt {
+                font-weight: 400;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.45);
+            }
+        }
+    }
+}
