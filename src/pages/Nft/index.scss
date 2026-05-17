@@ -1,0 +1,133 @@
+.NftPage {
+    min-height: 100vh;
+    background: #000;
+
+    .nftContentPage {
+        margin-inline: 14px;
+        padding-top: 60px;
+
+        .headerNftTopBox {
+            padding: 16px 12px;
+            background-image: url('@/assets/Chfp/bg.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+
+            .headerNftTopOption {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .txt {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+            }
+
+            .numOption {
+                margin-top: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .txt {
+                    font-weight: 500;
+                    font-size: 24px;
+                    color: #FFFFFF;
+                }
+            }
+
+            .btnOption {
+                color: #fff;
+                width: 100%;
+                margin-top: 20px;
+                background-image: url('@/assets/Chfp/btnBg.png');
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+                text-align: center;
+                line-height: 40px;
+                height: 40px;
+            }
+
+        }
+
+        .nftTxtBox {
+            font-weight: 500;
+            font-size: 18px;
+            color: #FFFFFF;
+            margin-top: 12px;
+
+        }
+
+        .nftListBox {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .nftItem {
+                margin-bottom: 12px;
+                width: 165px;
+                height: 250px;
+                background: #1A1D25;
+                border-radius: 8px;
+                .img {
+                    background: skyblue;
+                    width: 165px;
+                    height: 180px;
+                    border-top-left-radius: 8px;
+                    border-top-right-radius: 8px;
+                }
+
+                .endInfo {
+                    padding: 8px;
+                    width: 100%;
+                    .endOption {
+                        margin-top: 12px;
+                    width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .leftTitle {
+                            font-weight: 500;
+                            font-size: 16px;
+                            color: #FFFFFF;
+                        }
+
+                        .rightType1 {
+                            border-radius: 8px;
+                            padding: 1px 4px;
+                            border: 1px solid #9A5AF3;
+                            color: #9A5AF3;
+                            font-size: 12px;
+                        }
+
+                        .rightType2 {
+                            border-radius: 8px;
+                            padding: 1px 4px;
+                            color: #F8C001;
+                            font-size: 12px;
+                            border: 1px solid #F8C001;
+                        }
+
+                        .rightType3 {
+                            padding: 1px 4px;
+                            color: rgba(255, 255, 255, 0.65);
+                            border-radius: 8px;
+                            border: 1px solid rgba(255, 255, 255, 0.65);
+                        }
+                    }
+
+                    .numOption {
+                        margin-top: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+                }
+            }
+        }
+    }
+}

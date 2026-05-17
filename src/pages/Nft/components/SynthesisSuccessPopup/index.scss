@@ -1,0 +1,93 @@
+.SynthesisSuccessPopupPage {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('@/assets/Nft/BgCaiDan.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    .SynthesisPopupContent {
+        margin-inline: 40px;
+        padding: 16px;
+        background: #1E2231;
+        border-radius: 24px;
+    }
+
+    .cardSuccessBox {
+        padding: 8px;
+        background-image: url('@/assets/Nft/bg.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+
+        .img {
+            width: 175px;
+            height: 200px;
+            border-radius: 8px;
+            background: skyblue;
+        }
+
+        .endInfo {
+            margin-top: 4px;
+
+            .endInfoTop {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftTxt {
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #FFFFFF;
+                }
+
+                .rightType1 {
+                    border-radius: 8px;
+                    padding: 1px 4px;
+                    border: 1px solid #9A5AF3;
+                    color: #9A5AF3;
+                    font-size: 12px;
+                }
+
+                .rightType2 {
+                    border-radius: 8px;
+                    padding: 1px 4px;
+                    color: #F8C001;
+                    font-size: 12px;
+                    border: 1px solid #F8C001;
+                }
+
+                .rightType3 {
+                    padding: 1px 4px;
+                    color: rgba(255, 255, 255, 0.65);
+                    border-radius: 8px;
+                    border: 1px solid rgba(255, 255, 255, 0.65);
+                }
+            }
+
+            .endInfoEnd {
+                font-weight: 400;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.65);
+            }
+        }
+    }
+
+
+
+
+
+
+    .btnBox {
+        margin-top: 32px;
+        line-height: 44px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        color: #FFFFFF;
+        height: 44px;
+        background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+        border-radius: 25px;
+    }
+
+}

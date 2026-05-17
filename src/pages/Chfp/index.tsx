@@ -8,17 +8,45 @@ import rightIcon from "@/assets/Draw/rightIcon.png";
 import about from "@/assets/Chfp/about.png";
 import NoData from "@/components/NoData/index";
 import { Button } from "antd";
-import HintPopup from "./components/HintPopup/index";
-import RulePopup from "./components/RulePopup/index";
-import ActivateGoldPopup from "./components/ActivateGoldPopup";
-import ChfpPopup from "./components/ChfpPopup";
+import HintPopup from "./components/HintPopup/index.tsx";
+import RulePopup from "./components/RulePopup/index.tsx";
+import ActivateGoldPopup from "./components/ActivateGoldPopup/index.tsx";
+import RedeemPopup from "./components/RedeemPopup/index.tsx";
+import ChfpPopup from "./components/ChfpPopup/index.tsx";
+import Reinvestment from "./components/Reinvestment/index.tsx";
+import Extract from "./components/Extract/index.tsx";
 import { Switch } from "antd-mobile";
 const Chfp: React.FC = () => {
   const [hintPopupShow, setHintPopupShow] = useState<boolean>(false);
   const [rulePopupShow, setRulePopupShow] = useState<boolean>(false);
   const [chfpPopupShow, setChfpPopupShow] = useState<boolean>(false);
+  const [redeemPopupShow, setRedeemPopupShow] = useState<boolean>(false);
+  const [reinvestmentShow, setReinvestmentShow] = useState<boolean>(false);
+  const [extractShow, setExtractShow] = useState<boolean>(false);
   const [activateGoldPopupShow, setActivateGoldPopupShow] =
     useState<boolean>(false);
+ const extractPopupCloseChange = () => {
+    setExtractShow(false);
+  };
+
+  const openExtractPopupClick = () => {
+    setExtractShow(true);
+  };
+  const reinvestmentPopupCloseChange = () => {
+    setReinvestmentShow(false);
+  };
+
+  const openReinvestmentPopupClick = () => {
+    setReinvestmentShow(true);
+  };
+  const redeemPopupShowClick = () => {
+    setRedeemPopupShow(true);
+  };
+
+  const redeemPopupCloseChange = () => {
+    setRedeemPopupShow(false);
+  };
+
   const hintPopupCloseChange = () => {
     setHintPopupShow(false);
   };
@@ -67,13 +95,23 @@ const Chfp: React.FC = () => {
             <Button className="btnOne btn" onClick={() => openChfpPopupClick()}>
               赎回
             </Button>
-            <Button className="btnTwo btn">升级本金</Button>
+            <Button
+              className="btnTwo btn"
+              onClick={() => redeemPopupShowClick()}
+            >
+              升级本金
+            </Button>
           </div>
         </div>
 
         <div className="reinvestmentBox">
           <div className="headerOption">
-            <div className="leftTxt">追投账户</div>
+            <div
+              className="leftTxt"
+              onClick={() => openReinvestmentPopupClick()}
+            >
+              追投账户
+            </div>
             <div className="rightOption">
               <img src={about} className="aboutIcon"></img>
               <span className="txt">Ai追投已开启</span>
@@ -90,7 +128,7 @@ const Chfp: React.FC = () => {
             <span className="num">0.00</span>
             <span className="typeAmount">USDT</span>
           </div>
-          <div className="hintTxt">
+          <div className="hintTxt" onClick={()=>openExtractPopupClick()}>
             开启后每日将自动追投首投金额的10%，直开启后每日将自动追投首投金额的10%，直至追投账户的余额不够为止。
           </div>
           <div className="btnList">
@@ -187,6 +225,22 @@ const Chfp: React.FC = () => {
         visible={chfpPopupShow}
         closeChange={() => chfpCloseChange()}
       ></ChfpPopup>
+
+      <RedeemPopup
+        visible={redeemPopupShow}
+        closeChange={() => redeemPopupCloseChange()}
+      ></RedeemPopup>
+
+      <Reinvestment
+        visible={reinvestmentShow}
+        closeChange={() => reinvestmentPopupCloseChange()}
+      ></Reinvestment>
+      <Extract
+      visible={extractShow}
+      closeChange={()=>extractPopupCloseChange()}
+      >
+
+      </Extract>
     </div>
   );
 };
