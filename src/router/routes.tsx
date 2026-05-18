@@ -6,6 +6,8 @@ const ABoutUs = lazy(() => import("@/pages/OtherPage/AboutUs/index"));
 const Chfp = lazy(() => import("@/pages/Chfp/index"));
 const EarningsList = lazy(() => import("@/pages/Chfp/list/index"));
 const Nft = lazy(() => import("@/pages/Nft/index"));
+const AssetDetail = lazy(() => import("@/pages/Asset/AssetDetail/index"));
+const Asset = lazy(() => import("@/pages/Asset/index"));
 export const routes = [
   { path: "/", element: <Navigate to="/FirstPage" replace /> },
   { path: "/FirstPage", element: <FirstPage /> },
@@ -14,4 +16,6 @@ export const routes = [
   { path: "/Chfp", element: <Chfp /> },
   { path: "/EarningsList", element: <EarningsList /> },
   { path: "/Nft", element: <Nft /> },
+  { path: "/AssetDetail", element: <AssetDetail /> },
+  { path: "/Asset", element: <Asset /> },
 ];

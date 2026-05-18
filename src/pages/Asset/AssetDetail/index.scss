@@ -1,0 +1,143 @@
+.AssetDetailPage {
+    height: 100vh;
+    background: #000;
+
+    .contentPage {
+        margin-inline: 14px;
+        padding-top: 60px;
+        height: 100vh;
+
+        .tabBox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .tabOption {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #000000;
+                border-radius: 25px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                padding: 4px;
+
+                .tabCheck {
+                    background: rgba(24, 151, 252, 0.25);
+                    border-radius: 25px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #1897FC;
+                    border: 1px solid #1897FC;
+                }
+
+                .tabItem {
+                    width: 80px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.65);
+                }
+            }
+        }
+
+        .checkContentBox {
+            margin-top: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .checkOption {
+                width: 48%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 8px;
+                padding: 8px 12px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-sizing: border-box;
+
+                .checkTxt {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+
+                .checkIcon {
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
+
+        .listContent {
+            margin-top: 16px;
+            height: calc(100vh - 140px);
+            width: 100%;
+            margin-top: 8px;
+            border-radius: 8px;
+            overflow-y: scroll;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px 12px;
+
+            .listHeader {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftTxt {
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.45);
+                }
+
+                .rightTxt {
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.45);
+                }
+            }
+
+            .listItem {
+                padding-block: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
+
+
+                .itemTxt {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: #FFFFFF;
+
+                }
+
+            }
+
+            .itemTxtDate {
+                width: 20%;
+                color: #fff;
+            }
+
+            .txtType {
+                width: 20%;
+            }
+
+            .rightTxtLeft {
+                text-align: left !important;
+            }
+
+            .txtCenter {
+                text-align: center;
+            }
+
+            .rightTxt {
+                text-align: right;
+            }
+        }
+    }
+}
