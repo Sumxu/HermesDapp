@@ -13,7 +13,7 @@ interface HeaderTopProps {
 }
 const HeaderTop: React.FC<HeaderTopProps> = ({
   title,
-  backgroundColor = "#ffffff", // 默认白色背景
+  backgroundColor = "none", // 默认白色背景
   isRight,
 }) => {
   const navigate = useNavigate();

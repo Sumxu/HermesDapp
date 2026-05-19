@@ -1,0 +1,93 @@
+.GameRulePage {
+    min-height: 100vh;
+    background: #000;
+
+    .GameRuleContentPage {
+        margin-inline: 16px;
+        padding-top: 60px;
+
+        .contentTopBox {
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.15);
+            margin-top: 12px;
+            border-radius: 8px;
+            background-image: url('@/assets/Guessing/ruleBg.png');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            height: 300px;
+            padding: 27px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .contentTopOption {
+                width: 160px;
+                height: 28px;
+            }
+
+            .txtOption {
+                margin-top: 20px;
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+
+            .txtsOption {
+                margin-bottom: 12px;
+                font-weight: 400;
+                font-size: 14px;
+                list-style: 1.5em;
+                color: rgba(255, 255, 255, 0.65);
+            }
+
+            .txtsTwoOption {
+                font-weight: 400;
+                font-size: 14px;
+                color: #FFFFFF;
+            }
+            .icon{
+                width: 17px;
+                height: 11px;
+                margin-top: 16px;
+            }
+            .num{
+                margin-top: 7px;
+                height: 36px;
+                width: 206px;
+            }
+        }
+
+        .ruleHintBox {
+            margin-top: 12px;
+            border-radius: 8px;
+            padding-inline: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            .title {
+                margin-top: 16px;
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+
+            .ruleHintTxt {
+                margin-top: 12px;
+
+                .hintLabel {
+                    margin-bottom: 12px;
+                    display: flex;
+                    align-items: center;
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.65);
+
+                    .spn {
+                        color: #F8C001;
+                    }
+                }
+            }
+        }
+    }
+
+}

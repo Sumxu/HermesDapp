@@ -1,0 +1,228 @@
+.CommunityPage {
+    min-height: 100vh;
+    background: #000;
+
+    .contentPage {
+        box-sizing: border-box;
+        padding-inline: 16px;
+        padding-top: 60px;
+        padding-bottom: 40px;
+
+        .CommunityHeaderTopBox {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .headerTopOption {
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                padding: 16px;
+                width: 48%;
+
+                .topTxt {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .txt {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+
+                    .copyIcon {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+
+                .endNum {
+                    margin-top: 14px;
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #F8C001;
+                }
+            }
+
+        }
+
+        .sheQuBox {
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px;
+
+            .sheQuTxt {
+                font-weight: 500;
+                font-size: 18px;
+                color: #FFFFFF;
+            }
+
+            .sheQuHintTxt {
+                margin-top: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.45);
+            }
+
+            .flexWarpBox {
+                margin-top: 16px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                .flexItem {
+                    margin-bottom: 8px;
+                    background: #1A1D25;
+                    border-radius: 8px;
+                    padding: 16px 12px;
+                    width: 48%;
+                    height: 80px;
+                    box-sizing: border-box;
+
+                    .flexTxt {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+
+                    .flexTxtTwo {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                        margin-top: 8px;
+                    }
+                }
+            }
+
+            .btnOptionBox {
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 12px;
+                border-radius: 8px;
+                background: #1A1D25;
+
+                .leftOption {
+                    .topTxt {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+
+                    .endAmount {
+                        margin-top: 8px;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #F8C001;
+                    }
+
+                    .endAmountList {
+                        margin-top: 8px;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #fff;
+                    }
+                }
+
+                .rightBtn {
+                    background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+                    border-radius: 25px;
+                    padding: 6px 26px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+
+                .rightBtnList {
+                    border: 1px solid rgba(255, 255, 255, 0.35);
+                    ;
+                    border-radius: 25px;
+                    padding: 6px 26px;
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .myShareBox {
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px;
+
+            .shareTitle {
+                font-weight: 500;
+                font-size: 18px;
+                color: #FFFFFF;
+            }
+
+            .shareHintTxt {
+                margin-top: 8px;
+                font-weight: 500;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.45);
+            }
+
+            .shareList {
+                margin-top: 16px;
+
+                .shareHeader {
+                    display: flex;
+                    align-items: center;
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.45);
+
+                    .walletAddress {
+                        width: 32%;
+                        text-align: left;
+                    }
+
+                    .joinTime {
+                        text-align: center;
+                        width: 32%;
+                    }
+
+                    .usdtAmount {
+                        text-align: right;
+                        width: 32%;
+                    }
+                }
+
+                .shareItemsBox {
+                    height: 200px;
+                    overflow-y: scroll;
+
+                    .shareItem {
+                        margin-top: 16px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                        display: flex;
+                        align-items: center;
+
+                        .walletAddress {
+                            width: 32%;
+                            text-align: left;
+                        }
+
+                        .joinTime {
+                            text-align: center;
+
+                            width: 32%;
+
+                        }
+
+                        .usdtAmount {
+                            text-align: right;
+                            width: 32%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

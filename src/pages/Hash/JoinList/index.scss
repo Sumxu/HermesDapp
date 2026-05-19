@@ -1,0 +1,127 @@
+.JoinListPage {
+    min-height: 100vh;
+    background: #000;
+
+    .JoinListContentPage {
+        padding-top: 60px;
+        margin-inline: 16px;
+        .box {
+            margin-bottom: 24px;
+            padding: 16px 12px;
+            border-radius: 8px;
+
+            .headerBox {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-bottom: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+                ;
+
+                .leftTxt {
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #FFFFFF;
+                }
+
+                .rightTxt {
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.45);
+
+                    .lose {
+                        padding: 2px 4px;
+                        width: 24px;
+                        height: 24px;
+                        line-height: 24px;
+                        text-align: center;
+                        background: #DA2C2C;
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #FFFFFF;
+                        border-radius: 50%;
+                        
+                    }
+
+                    .win {
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                        line-height: 24px;
+                        text-align: center;
+                        background: #3475FF;
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .contentBox {
+                padding-top: 15px;
+
+                .hintTxtOption {
+                    margin-top: 12px;
+                    display: flex;
+                    align-items: center;
+
+                    .spn {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.45);
+                    }
+
+                    .spn2 {
+                        display: flex;
+                        align-items: center;
+
+                        .spnNum {
+                            font-weight: 400;
+                            font-size: 14px;
+                            color: #FFFFFF;
+                        }
+
+                        .copyIcon {
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                        .btn {
+                            margin-left: 6px;
+                            width: 60px;
+                            height: 19px;
+                            line-height: 19px;
+                            text-align: center;
+                            background: rgba(52, 117, 255, 0.15);
+                            border-radius: 4px;
+                            font-weight: 400;
+                            font-size: 12px;
+                            color: #1897FC;
+                        }
+
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #FFFFFF;
+
+                        .lose {
+                            color: #DA2C2C;
+                        }
+
+                        .win {
+                            color: #F8C001;
+                        }
+                    }
+                }
+            }
+        }
+
+        .boxNo {
+            background: #1A1D25;
+
+        }
+
+        .boxOk {
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+    }
+}

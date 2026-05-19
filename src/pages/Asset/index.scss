@@ -13,6 +13,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             .leftInfoOption {
                 .topTxt {
                     font-weight: 400;
@@ -56,6 +57,11 @@
             background-size: 100% 100%;
             background-repeat: no-repeat;
             padding: 16px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .liCaiLeftOption {}
 
             .headerBox {
                 display: flex;
@@ -119,10 +125,11 @@
                 justify-content: space-between;
 
                 .btn {
-                    width: 155px;
-                    height: 40px;
+                    margin-left: 8px;
+                    width: 60px;
+                    height: 25px;
                     border-radius: 20px;
-                    font-size: 14px;
+                    font-size: 12px;
                 }
 
                 .btnOne {
@@ -132,9 +139,15 @@
                     color: #FFFFFF;
                 }
 
+                .btnToRu {
+                    background: #1DD274;
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: rgba(0, 0, 0, 0.85);
+                }
+
                 .btnTwo {
                     font-weight: 500;
-
                     color: rgba(0, 0, 0, 0.85);
                     background: #FFFFFF;
                 }
@@ -177,6 +190,13 @@
                 }
             }
 
+            .endInfoOption {
+                margin-top: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
             .amountOption {
                 .num {
                     font-weight: 500;
@@ -204,10 +224,11 @@
                 justify-content: space-between;
 
                 .btn {
-                    width: 155px;
-                    height: 40px;
+                    margin-right: 12px;
+                    width: 60px;
+                    height: 30px;
                     border-radius: 20px;
-                    font-size: 14px;
+                    font-size: 12px;
                 }
 
                 .btnOne {
@@ -267,280 +288,120 @@
             }
         }
 
-        .shouYiBox {
-            margin-top: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 240px;
-            box-sizing: border-box;
+        .blanceOfBox {
+            margin-top: 12px;
+            border-radius: 8px;
+            background: #1A1D25;
+            padding: 0 12px;
 
-            .usdtBox {
-                width: 100%;
-                margin-right: 12px;
-                background: #1A1D25;
-                border-radius: 8px;
-                padding: 16px 12px;
-
-                .usdtTop {
-                    display: flex;
-                    align-items: center;
-
-                    .usdtIcon {
-                        width: 24px;
-                        height: 24px;
-                    }
-
-                    .usdtTxt {
-                        margin-left: 4px;
-                        font-weight: 400;
-                        font-size: 14px;
-                        color: #FFFFFF;
-                    }
-                }
-
-                .centerBox {
-                    padding-bottom: 20px;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    margin-top: 12px;
-                    font-weight: 500;
-                    font-size: 20px;
-                    color: #FFFFFF;
-
-                    .amount {
-                        font-weight: 500;
-                        font-size: 20px;
-                        color: #FFFFFF;
-                    }
-
-                    .yesterDay {
-                        margin-top: 4px;
-                        font-weight: 400;
-                        font-size: 12px;
-                        color: #F8C001;
-                    }
-                }
-
-                .endOption {
-                    margin-top: 16px;
-
-                    .endHintTxt {
-                        font-weight: 400;
-                        font-size: 14px;
-                        color: #FFFFFF;
-                    }
-
-                    .endHintNum {
-                        font-weight: 500;
-                        font-size: 20px;
-                        color: #FFFFFF;
-                    }
-
-                    .btnGet {
-                        margin-top: 12px;
-                        width: 100%;
-                        height: 40px;
-                        background: rgba(255, 255, 255, 0.25);
-                        border-radius: 20px;
-                    }
-                }
+            .bottomBorder {
+                border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
             }
 
-            .hzBox {
-                width: 100%;
-                background: #1A1D25;
-                border-radius: 8px;
-                padding: 16px 12px;
+            .blanceOption {
+                padding-block: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
 
-                .usdtTop {
+                .leftOption {
                     display: flex;
                     align-items: center;
 
-                    .usdtIcon {
-                        width: 24px;
-                        height: 24px;
+                    .icon {
+                        width: 32px;
+                        height: 32px;
                     }
 
-                    .usdtTxt {
-                        margin-left: 4px;
-                        font-weight: 400;
-                        font-size: 14px;
-                        color: #FFFFFF;
+                    .contentOption {
+                        margin-left: 8px;
+
+                        .topTxt {
+                            font-weight: 500;
+                            font-size: 16px;
+                            color: #FFFFFF;
+                        }
+
+                        .endTxt {
+                            margin-top: 2px;
+                            font-weight: 400;
+                            font-size: 12px;
+                            color: rgba(255, 255, 255, 0.35);
+                        }
                     }
                 }
 
-                .centerBox {
-                    padding-bottom: 20px;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                    margin-top: 12px;
-                    font-weight: 500;
-                    font-size: 20px;
-                    color: #FFFFFF;
 
-                    .amount {
+                .rightOption {
+                    .numTxt {
                         font-weight: 500;
-                        font-size: 20px;
+                        font-size: 16px;
                         color: #FFFFFF;
                     }
 
-                    .yesterDay {
+                    .numTwoTxt {
                         margin-top: 4px;
                         font-weight: 400;
                         font-size: 12px;
-                        color: #F8C001;
-                    }
-                }
-
-                .endOption {
-                    margin-top: 16px;
-
-                    .endHintNums {
-                        font-weight: 400;
-                        font-size: 14px;
-                        margin-bottom: 40px;
                         color: rgba(255, 255, 255, 0.45);
-                    }
-
-                    .btnList {
-                        width: 100%;
-                        height: 40px;
-                        color: #fff;
-                        background: none;
-                        border-radius: 20px;
-                    }
-
-                    .btnSuccess {
-                        background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
                     }
                 }
             }
         }
 
-        .listBox {
-            margin-top: 20px;
+        .duiHuanBox {
+            margin-top: 12px;
+            padding: 16px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-            .listHeader {
+            .leftOption {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
 
-                .leftTitle {
-                    font-weight: 600;
-                    font-size: 18px;
-                    color: #FFFFFF;
-                }
-
-                .rightOption {
+                .iconOption {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
+                    background: #305AF6;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    .icon {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
 
-                    .rightTxt {
-                        font-weight: 400;
-                        font-size: 14px;
-                        color: rgba(255, 255, 255, 0.65);
+
+                .contentOption {
+                    margin-left: 12px;
+
+                    .numTxt {
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #FFFFFF;
                     }
 
-                    .rightIcon {
-                        width: 18px;
-                        height: 18px;
+                    .hintTxt {
+                        margin-top: 2px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.45);
                     }
                 }
             }
 
-            .listBorder {
-                border-radius: 8px;
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                margin-top: 11px;
-                padding: 16px 12px;
-
-                .headerOption {
-                    display: flex;
-                    align-items: center;
-
-                    .headerItem {
-                        font-weight: 500;
-                        font-size: 12px;
-                        color: rgba(255, 255, 255, 0.45);
-                    }
-
-                    .dateTimeHeader {
-                        width: 30%;
-                        font-weight: 400;
-                    }
-
-                    .accountHeader {
-                        text-align: left;
-                        width: 22%;
-                        font-weight: 400;
-                    }
-
-                    .typeHeader {
-                        text-align: center;
-                        width: 22%;
-                        font-weight: 400;
-                    }
-
-                    .amountHeader {
-                        text-align: right;
-                        width: 22%;
-                        font-weight: 400;
-                    }
-                }
-
-                .listData {
-                    .listOption {
-                        display: flex;
-                        margin-top: 16px;
-                        padding-bottom: 16px;
-                        border-bottom: 1px dashed rgba(255, 255, 255, 0.25);
-
-                        .dateTime {
-                            width: 30%;
-                            font-weight: 400;
-                            font-size: 14px;
-                            color: #fff;
-                        }
-
-                        .account {
-                            text-align: left;
-                            width: 22%;
-                            font-weight: 400;
-                            font-size: 14px;
-                            color: #fff;
-                        }
-
-                        .type {
-                            text-align: center;
-                            width: 22%;
-                            font-weight: 400;
-                            font-size: 14px;
-                            color: #fff;
-                        }
-
-                        .amount {
-                            text-align: right;
-                            width: 22%;
-                            font-weight: 400;
-                            font-size: 14px;
-                            color: #fff;
-                        }
-
-                        .error {
-                            color: #DA2C2C;
-                        }
-
-                        .success {
-                            color: #F8C001;
-                        }
-
-                    }
-
-                    .NoDataOption {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
+            .rightBtn {
+                font-weight: 500;
+                font-size: 12px;
+                color: #FFFFFF;
+                padding: 6px 12px;
+                background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+                border-radius: 25px;
             }
         }
     }

@@ -1,0 +1,43 @@
+.NoPopupPage {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .HintPopupContent {
+        margin-inline: 40px;
+        background: #1E2231;
+        border-radius: 16px;
+        width: 160px;
+        height: 130px;
+        background: #1E2231;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .headerTop {
+        text-align: center;
+        position: relative;
+        background: rgba(0, 0, 0, 0.2);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        .closeIcon {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .txtsOption {
+        margin-top: 12px;
+        font-weight: 500;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.65);
+    }
+}

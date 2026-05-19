@@ -81,13 +81,13 @@
             }
 
             .inputClass:focus,
-.inputClass-focused,
-.inputClass input:focus,
-.inputClass .ant-input-focused {
-  border-color: #d9d9d9 !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
+            .inputClass-focused,
+            .inputClass input:focus,
+            .inputClass .ant-input-focused {
+                border-color: #d9d9d9 !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
 
             .inputClass::placeholder {
                 color: #999999;

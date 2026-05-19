@@ -1,0 +1,534 @@
+.HashPage {
+    min-height: 100vh;
+    background: #000;
+    background-image: url('@/assets/Guessing/bg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 170px;
+
+    .progressCircleTxt {
+        color: #fff !important;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    .HashContentPage {
+        padding-top: 70px;
+
+        .hashPlayBox {
+            padding-top: 24px;
+            padding-inline: 16px;
+
+            .titleOption {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .leftOption {
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #FFFFFF;
+                }
+
+                .rightOption {
+                    display: flex;
+                    align-items: center;
+
+                    .icon {
+                        width: 16px;
+                        height: 16px;
+                    }
+
+                    .spx {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+                }
+            }
+
+            .playOption {
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .typePlay {
+                    padding: 16px 60px;
+                    width: 48%;
+                    border-radius: 8px;
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .typeTxt {
+                        font-weight: 500;
+                        font-size: 32px;
+                        color: #4393FC;
+                    }
+
+                    .typeBlock {
+                        margin-top: 8px;
+                        background: rgba(255, 255, 255, 0.08);
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+
+                        .icon {
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        .spnTxt {
+                            margin-left: 4px;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #FFFFFF;
+                        }
+                    }
+
+                }
+
+                .typePlayCheck {
+                    background: rgba(248, 192, 1, 0.06);
+                    border: 1px solid #F8C001;
+
+                    .typeTxt {
+                        font-weight: 500;
+                        font-size: 32px;
+                        color: #DA2C2C;
+                    }
+                }
+            }
+        }
+
+        .joinBox {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .leftTxt {
+                font-weight: 500;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+
+            .rightOption {
+
+                .title {
+                    font-weight: 400;
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.65);
+                }
+
+                .amount {
+                    font-weight: 500;
+                    font-size: 12px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .amountListBox {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            .itemAmount {
+                width: 65px;
+                height: 40px;
+                background: #1A1D25;
+                border-radius: 8px;
+                line-height: 40px;
+                text-align: center;
+                font-weight: 500;
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.85);
+            }
+
+            .itemAmountCheck {
+                background: rgba(248, 192, 1, 0.06);
+                border-radius: 8px;
+                border: 1px solid #F8C001;
+            }
+        }
+
+        .inputAmountBox {
+            margin-top: 6px;
+            height: 40px;
+            background: #1A1D25;
+            border-radius: 8px;
+
+            .inputClass {
+                text-align: center;
+                width: 100%;
+                height: 100%;
+                background: none;
+                border: none;
+                color: #fff;
+            }
+
+            .inputClass:focus,
+            .inputClass-focused,
+            .inputClass input:focus,
+            .inputClass .ant-input-focused {
+                border-color: #d9d9d9 !important;
+                box-shadow: none !important;
+                outline: none !important;
+            }
+
+            .inputClass::placeholder {
+                color: #63656A;
+                /* 占位符颜色 */
+                font-size: 14px;
+                /* 字体大小 */
+                font-weight: 400;
+                /* 字体粗细 */
+                font-family: "Microsoft YaHei", sans-serif;
+                /* 字体 */
+            }
+        }
+
+        .hashInfoBox {
+            .hashInfoOption {
+                display: flex;
+                align-items: center;
+
+                .leftOption {
+                    width: 40%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .topTxt {
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #81849A;
+                    }
+
+                    .endOption {
+                        margin-top: 4px;
+                        border-radius: 4px;
+                        background: rgba(0, 0, 0, 0.65);
+                        display: flex;
+                        align-items: center;
+                        width: 125px;
+                        height: 28px;
+
+                        .icon {
+                            margin-left: 6px;
+                            width: 16px;
+                            height: 16px;
+
+                        }
+
+                        .endNum {
+                            margin-left: 4px;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #FFFFFF;
+                        }
+
+                        .endBtn {
+                            padding: 6px;
+                            font-weight: 500;
+                            font-size: 12px;
+                            color: #FFFFFF;
+                            background: #3475FF;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+
+                .centerOption {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 20%;
+                }
+
+                .rightOption {
+                    width: 40%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    flex: auto;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .topTxt {
+                        font-weight: 500;
+                        font-size: 12px;
+                        color: #81849A;
+                    }
+
+                    .endOption {
+                        width: 125px;
+                        height: 28px;
+                        margin-top: 4px;
+                        border-radius: 4px;
+                        background: rgba(0, 0, 0, 0.65);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        .icon {
+                            margin-left: 6px;
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                        .endNum {
+                            margin-left: 4px;
+                            font-weight: 500;
+                            font-size: 12px;
+                            color: #F8C001;
+                        }
+
+
+                    }
+                }
+            }
+
+            .hashEndTxt {
+                margin-top: 12px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .centerOption {
+                    font-weight: 500;
+                    font-size: 14px;
+                    color: #FFFFFF;
+
+                    .spnTxt {
+                        font-weight: 500;
+                        font-size: 14px;
+                        color: #F8C001;
+                    }
+                }
+
+                .fixedRightOption {
+                    position: absolute;
+                    background: rgba(0, 0, 0, 0.65);
+                    border-radius: 4px;
+                    padding: 4px 6px;
+                    display: flex;
+                    align-items: center;
+                    right: 14px;
+
+                    .listOption {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .icon {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                .listAbsoluteBox {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 38px;
+                    z-index: 999;
+
+                    .headerTopOption {
+                        height: 50px;
+                        background: #1E2231;
+                        display: flex;
+                        align-items: center;
+
+                        .topItem {
+                            text-align: center;
+                            width: 25%;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #81849A;
+                        }
+                    }
+
+                    .listBox {
+                        height: 300px;
+                        background: #1A1D25;
+                        overflow-y: scroll;
+                        padding-bottom: 12px;
+
+                        .listOption {
+                            display: flex;
+                            align-items: center;
+                            padding-block: 17px;
+                            font-weight: 500;
+                            font-size: 14px;
+                            color: #FFFFFF;
+                            border-bottom: 1px solid #272729;
+
+                            .numTxt {
+                                width: 25%;
+                                text-align: center;
+                            }
+
+                            .resultTxt {
+                                width: 25%;
+                                text-align: center;
+                            }
+
+                            .num {
+                                width: 25%;
+                                text-align: center;
+                            }
+
+                            .btnBlock {
+                                width: 25%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                .btn {
+                                    line-height: 28px;
+                                    text-align: center;
+                                    width: 70px;
+                                    height: 28px;
+                                    background: rgba(52, 117, 255, 0.15);
+                                    border-radius: 4px;
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                    color: #1897FC;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        .awardBox {
+            margin-top: 12px;
+            padding-inline: 16px;
+
+            .awardOption {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .awardTitle {
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: #FFFFFF;
+                }
+
+                .awardRight {
+                    display: flex;
+                    align-items: center;
+
+                    .spn {
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .icon {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+
+            .awardListBox {
+                margin-top: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .awardItem {
+                    width: 48%;
+                    height: 100px;
+                    background: #1A1D25;
+                    border-radius: 8px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .title {
+                        font-weight: 500;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                    }
+
+                    .hintTxt {
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: rgba(255, 255, 255, 0.65);
+                    }
+
+                    .btnOption {
+                        margin-top: 8px;
+                        width: 116px;
+                        height: 28px;
+                        line-height: 28px;
+                        border-radius: 16px;
+                        border: 1px solid #FFFFFF;
+                        color: #fff;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+
+    .fixedEndBox {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: #13151B;
+        padding: 10px 16px;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .leftEndOption {
+            .needPayTxt {
+                font-weight: 400;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.65);
+            }
+
+            .needPayNum {
+                margin-top: 4px;
+                font-weight: 500;
+                font-size: 14px;
+                color: #F8C001;
+            }
+        }
+
+
+        .rightBtn {
+            background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+            border-radius: 25px;
+            font-weight: 500;
+            padding-inline: 60px;
+            font-size: 16px;
+            color: #FFFFFF;
+            line-height: 40px;
+            height: 40px;
+            text-align: center;
+        }
+    }
+}

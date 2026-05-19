@@ -4,9 +4,9 @@ import HeaderTop from "@/components/HeaderTop";
 import query from "@/assets/Chfp/query.png";
 import USDT from "@/assets/Chfp/USDT.png";
 import HTOKEN from "@/assets/Chfp/HTOKEN.png";
-import rightIcon from "@/assets/Draw/rightIcon.png";
 import about from "@/assets/Chfp/about.png";
-import NoData from "@/components/NoData/index";
+import Icon from "@/assets/Flash/icon.png";
+import NFT from "@/assets/Flash/nft.png";
 import listIcon from "@/assets/Basic/listIcon.png";
 import { Button } from "antd";
 import { Switch } from "antd-mobile";
@@ -28,32 +28,25 @@ const Asset: React.FC = () => {
           </div>
         </div>
         <div className="liCaiBox">
-          <div className="headerBox">
-            <div className="leftTxtOption">理财账户</div>
-            <div className="rightOption">
-              <span className="txt">规则说明</span>
-              <img src={query} className="queryIcon"></img>
+          <div className="liCaiLeftOption">
+            <div className="headerBox">
+              <div className="leftTxtOption">理财账户</div>
+            </div>
+            <div className="AmountOption">
+              <span className="num">0.00</span>
+              <span className="amountType">USDT</span>
             </div>
           </div>
-          <div className="AmountOption">
-            <span className="num">0.00</span>
-            <span className="amountType">USDT</span>
-          </div>
-          <div className="btnBox">开启智能理财</div>
           <div className="btnList">
             <Button className="btnOne btn">赎回</Button>
-            <Button className="btnTwo btn">升级本金</Button>
+            <Button className="btnToRu btn">追投</Button>
+            <Button className="btnTwo btn">升级</Button>
           </div>
         </div>
 
         <div className="reinvestmentBox">
           <div className="headerOption">
-            <div
-              className="leftTxt"
-              onClick={() => openReinvestmentPopupClick()}
-            >
-              追投账户
-            </div>
+            <div className="leftTxt">追投账户</div>
             <div className="rightOption">
               <img src={about} className="aboutIcon"></img>
               <span className="txt">Ai追投已开启</span>
@@ -66,17 +59,73 @@ const Asset: React.FC = () => {
               />
             </div>
           </div>
-          <div className="amountOption">
-            <span className="num">0.00</span>
-            <span className="typeAmount">USDT</span>
+          <div className="endInfoOption">
+            <div className="amountOption">
+              <span className="num">0.00</span>
+              <span className="typeAmount">USDT</span>
+            </div>
+            <div className="btnList">
+              <Button className="btnOne btn">提取</Button>
+              <Button className="btnTwo btn">充值</Button>
+            </div>
           </div>
-          <div className="hintTxt" onClick={() => openExtractPopupClick()}>
-            开启后每日将自动追投首投金额的10%，直开启后每日将自动追投首投金额的10%，直至追投账户的余额不够为止。
+        </div>
+        <div className="blanceOfBox">
+          <div className="blanceOption bottomBorder">
+            <div className="leftOption">
+              <img src={HTOKEN} className="icon"></img>
+              <div className="contentOption">
+                <div className="topTxt">HZ</div>
+                <div className="endTxt">账户余额</div>
+              </div>
+            </div>
+            <div className="rightOption">
+              <div className="numTxt">1,532.08</div>
+              <div className="numTwoTxt">≈$536.05</div>
+            </div>
           </div>
-          <div className="btnList">
-            <Button className="btnOne btn">提取</Button>
-            <Button className="btnTwo btn">充值</Button>
+
+          <div className="blanceOption bottomBorder">
+            <div className="leftOption">
+              <img src={USDT} className="icon"></img>
+              <div className="contentOption">
+                <div className="topTxt">USDT</div>
+                <div className="endTxt">账户余额</div>
+              </div>
+            </div>
+            <div className="rightOption">
+              <div className="numTxt">1,532.08</div>
+              <div className="numTwoTxt">≈$536.05</div>
+            </div>
           </div>
+
+          <div className="blanceOption">
+            <div className="leftOption">
+              <img src={NFT} className="icon"></img>
+              <div className="contentOption">
+                <div className="topTxt">NFT</div>
+                <div className="endTxt">账户余额</div>
+              </div>
+            </div>
+            <div className="rightOption">
+              <div className="numTxt">1,532.08</div>
+              <div className="numTwoTxt">≈$536.05</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="duiHuanBox">
+          <div className="leftOption">
+           <div className="iconOption">
+             <img src={Icon} className="icon"></img>
+           </div>
+            <div className="contentOption">
+              <div className="numTxt">28000HZ</div>
+              <div className="hintTxt">剩余兑换额度</div>
+            </div>
+          </div>
+
+          <div className="rightBtn">去兑换</div>
         </div>
       </div>
     </div>
