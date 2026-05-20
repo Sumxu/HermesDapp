@@ -8,13 +8,11 @@ import ContractSend from "@/Hooks/ContractSend.ts";
 import ContractList from "@/Contract/Contract.ts";
 import { storage } from "@/Hooks/useLocalStorage";
 import { fromWei, Totast, toWei } from "@/Hooks/Utils";
-interface ReinvestmentPopupProps {
+interface RechargePopupProps {
   visible: boolean; //
-  principal: bigint;
   closeChange: () => void;
 }
-const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
-  principal,
+const RechargePopup: React.FC<RechargePopupProps> = ({
   visible,
   closeChange,
 }) => {
@@ -35,8 +33,8 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
   };
   const submitClick = async () => {
     //判断钱包余额是否足够
-    const amount = principal/10n;
-    console.log("amount--",amount)
+    const amount = toWei(jiHuoAmount, 18);
+    console.log("amount--", amount);
     if (walletAddressAmount < amount) {
       return Totast("余额不足", "error");
     }
@@ -74,11 +72,11 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
     try {
       const result = await ContractSend({
         tokenName: "investment",
-        methodsName: "append",
+        methodsName: "recharge",
         params: [amount],
       });
       if (result.value) {
-        Totast("追投成功", "success"); // 检查授权或者授权时发生了错误，请检查网络后重新尝试
+        Totast("充值成功", "success"); // 检查授权或者授权时发生了错误，请检查网络后重新尝试
         closeChange();
       }
     } finally {
@@ -101,7 +99,7 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
     >
       <div className="ReinvestmentPopupPage">
         <div className="headerTopOption">
-          <div className="title">追投理财账户</div>
+          <div className="title">充值余额</div>
           <img
             src={closeIcon}
             className="closeIcon"
@@ -110,7 +108,7 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
         </div>
         <div className="inputBox">
           <div className="inputHint">
-            <div className="leftTxt">追投金额</div>
+            <div className="leftTxt">充值金额</div>
             <div className="rightTxtOption">
               <span className="rightTxt">钱包余额</span>
               <span className="rightAmount">
@@ -122,8 +120,8 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
             <Input
               placeholder="请输入"
               className="inputClass"
-              disabled={true}
-              value={fromWei(principal, 18) * 0.1}
+              value={jiHuoAmount}
+              onChange={(e) => setJiHuoAmount(e.target.value)}
             ></Input>
             <span className="typeAmount">USDT</span>
             {/* <div className="blockLine"></div>
@@ -137,11 +135,11 @@ const RedeemPopup: React.FC<ReinvestmentPopupProps> = ({
             loading={btnLoading}
             onClick={() => submitClick()}
           >
-            确认追投
+            确认充值
           </Button>
         </div>
       </div>
     </Popup>
   );
 };
-export default RedeemPopup;
+export default RechargePopup;

@@ -95,12 +95,11 @@ export function splitAmountByBuySell(allTxs) {
     sellCount: sellTxs.length,
   };
 }
-export const concatSign = (bigNumber: string): string => {
+export const concatSign = (address: string): string => {
   // 获取当前时间戳（秒）
   const timestamp = Math.floor(Date.now() / 1000).toString();
-  console.log('timestamp--',timestamp)
   // 拼接参数
-  const combined = `${bigNumber}${timestamp}`;
+  const combined = `${address}${timestamp}`;
   return combined;
 };
 export function sumAllAmounts(allTxs) {
@@ -350,7 +349,7 @@ export function fromWei(
   value: bigint,
   decimals: number,
   fixed = true,
-  precision = 5,
+  precision = 4,
 ): string {
   if (value === undefined || value === null) return "0";
   try {

@@ -1,9 +1,9 @@
 import Erc20 from "./ABI/Erc20.ts";
 import EnvManager from "@/config/EnvManager.ts";
 import Erc20ABI from "./ABI/Erc20.ts";
+import InvestmentABI from "./ABI/InvestmentABI.ts";
 import MultiCallABI from "./ABI/MultiCallABI.ts";
 import SwapRouterABI from "./ABI/SwapRouterABI.ts";
-import HermesPRedictionABI from "./ABI/HermesPRedictionABI.ts";
 import { Router } from "react-router-dom";
 
 interface ContractItem {
@@ -19,12 +19,12 @@ const Contract: ContractMap = {
     address: EnvManager.contractUsdt,
     abi: Erc20,
   },
-  HermesPrediction:{
-      address: EnvManager.HermesPredictionContest,
-    abi: HermesPRedictionABI,
+  investment: {
+    address: EnvManager.investment,
+    abi: InvestmentABI,
   },
-  HermesToken: {
-    address: EnvManager.HermesToken,
+  prize: {
+    address: EnvManager.prize,
     abi: Erc20,
   },
   SwapRouter: {

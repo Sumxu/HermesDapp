@@ -6,7 +6,7 @@
         padding-top: 60px;
         height: 100vh;
         overflow-y: scroll;
-        padding-inline: 14px;
+        padding-inline: 16px;
         padding-bottom: 40px;
 
         .assetInfoBox {
@@ -331,9 +331,9 @@
                     }
                 }
 
-
                 .rightOption {
                     .numTxt {
+                        text-align: right;
                         font-weight: 500;
                         font-size: 16px;
                         color: #FFFFFF;
@@ -342,6 +342,7 @@
                     .numTwoTxt {
                         margin-top: 4px;
                         font-weight: 400;
+                        text-align: right;
                         font-size: 12px;
                         color: rgba(255, 255, 255, 0.45);
                     }

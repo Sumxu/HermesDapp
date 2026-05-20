@@ -57,11 +57,11 @@ class EnvManager {
   static get contractUsdt(): string {
     return EnvManager.config.contractUsdt;
   }
-  static get HermesToken(): string {
-    return EnvManager.config.HermesToken;
+  static get investment(): string {
+    return EnvManager.config.investment;
   }
-  static get HermesPredictionContest(): string {
-    return EnvManager.config.HermesPredictionContest;
+  static get prize(): string {
+    return EnvManager.config.prize;
   }
   static get rpcUrl(): string {
     return EnvManager.config.rpcUrl;

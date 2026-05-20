@@ -79,7 +79,6 @@ export async function ensureWalletConnected(navigate): Promise<boolean> {
 
   if (accounts.length > 0) {
     setAddress(accounts[0]);
-    localStorage.setItem("address", accounts[0]);
   }
 
   if (currentChainId.toLowerCase() !== BNB_PARAMS.chainId) {
@@ -89,7 +88,7 @@ export async function ensureWalletConnected(navigate): Promise<boolean> {
         params: [{ chainId: BNB_PARAMS.chainId }],
       });
       clearStorageFn();
-      navigate("/Wallet");
+      navigate("/home");
     } catch (err: any) {
       if (err.code === 4902) {
         try {
@@ -98,7 +97,7 @@ export async function ensureWalletConnected(navigate): Promise<boolean> {
             params: [BNB_PARAMS],
           });
           clearStorageFn();
-          navigate("/Wallet");
+          navigate("/home");
         } catch {}
       }
     }

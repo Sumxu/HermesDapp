@@ -13,19 +13,69 @@ import RulePopup from "./components/RulePopup/index.tsx";
 import ActivateGoldPopup from "./components/ActivateGoldPopup/index.tsx";
 import RedeemPopup from "./components/RedeemPopup/index.tsx";
 import ChfpPopup from "./components/ChfpPopup/index.tsx";
+import ChfpPlusPopup from "./components/ChfpPlusPopup/index.tsx";
 import Reinvestment from "./components/Reinvestment/index.tsx";
+import RechargePopup from "./components/RechargePopup/index.tsx";
 import Extract from "./components/Extract/index.tsx";
 import { Switch } from "antd-mobile";
+import { Totast, toWei } from "@/Hooks/Utils.ts";
+import NetworkRequest from "@/Hooks/NetworkRequest.ts";
+import ContractRequest from "@/Hooks/ContractRequest.ts";
+import { storage } from "@/Hooks/useLocalStorage.ts";
+import { fromWei } from "@/Hooks/Utils.ts";
+import ContractSend from "@/Hooks/ContractSend.ts";
+
+interface chfpInfo {
+  totalYieldUsdtReward: number; //usdt累计收益
+  totalYieldHzReward: number; //hz累计收益
+  yieldReward: number; //待领取收益
+  autoAppend: boolean; //自动追投开关
+}
+interface userInfo {
+  principal: bigint; //本金
+  maxRevenue: bigint; //最大投资额
+  rate: bigint; //当前收益
+  cycleStart: bigint; //开始时间
+  insurancePaid: bigint; //激活金
+  investment: bigint; //追投资金
+}
 const Chfp: React.FC = () => {
+  const [accountUsdt, setAccountUsdt] = useState<number>(0);
+  const walletAddress = storage.get("address");
+  const [userInfo, setUserInfo] = useState<userInfo>();
+  const [chfpInfo, setChfpInfo] = useState<chfpInfo>();
+  const [redeemLoading, setRedeemLoading] = useState<boolean>(false);
   const [hintPopupShow, setHintPopupShow] = useState<boolean>(false);
   const [rulePopupShow, setRulePopupShow] = useState<boolean>(false);
   const [chfpPopupShow, setChfpPopupShow] = useState<boolean>(false);
   const [redeemPopupShow, setRedeemPopupShow] = useState<boolean>(false);
   const [reinvestmentShow, setReinvestmentShow] = useState<boolean>(false);
+  const [rechargeShow, setRechargeShow] = useState<boolean>(false);
   const [extractShow, setExtractShow] = useState<boolean>(false);
+  const [chfpPlusShow, setChfpPlusShow] = useState<boolean>(false);
+  const [isOperation, setIsOperation] = useState<boolean>(false); //是否可以点击
   const [activateGoldPopupShow, setActivateGoldPopupShow] =
     useState<boolean>(false);
- const extractPopupCloseChange = () => {
+
+  const chfpPlusPopupCloseChange = () => {
+    setChfpPlusShow(false);
+    init();
+  };
+
+  const openRechargePopupClick = () => {
+    setRechargeShow(true);
+  };
+
+  const rechargePopupCloseChange = () => {
+    setRechargeShow(false);
+    init();
+  };
+
+  const openChfpPlusPopupClick = () => {
+    setChfpPlusShow(true);
+  };
+
+  const extractPopupCloseChange = () => {
     setExtractShow(false);
   };
 
@@ -45,8 +95,13 @@ const Chfp: React.FC = () => {
 
   const redeemPopupCloseChange = () => {
     setRedeemPopupShow(false);
+    init();
   };
-
+  const init = () => {
+    initUserData();
+    initData();
+    initAccountUsdt();
+  };
   const hintPopupCloseChange = () => {
     setHintPopupShow(false);
   };
@@ -66,12 +121,93 @@ const Chfp: React.FC = () => {
     setHintPopupShow(true);
   };
   const openChfpPopupClick = () => {
+    console.log("userInfo?.principal--", userInfo?.principal);
+    if (userInfo?.principal == toWei("1000", 18)) {
+      return Totast("已经最大等级!", "error");
+    }
     setChfpPopupShow(true);
   };
   const chfpCloseChange = () => {
     setChfpPopupShow(false);
+    init();
   };
-  useEffect(() => {}, []);
+  /**
+   * 理财赎回
+   */
+  const redeemPrincipalFn = async () => {
+    try {
+      setRedeemLoading(true);
+      const result = await ContractSend({
+        tokenName: "investment",
+        methodsName: "redeemPrincipal",
+        params: [],
+      });
+      if (result.value) {
+        Totast("赎回成功", "success"); // 检查授权或者授权时发生了错误，请检查网络后重新尝试
+        init();
+      }
+    } catch (error) {
+    } finally {
+      setRedeemLoading(false);
+    }
+  };
+  const initAccountUsdt = async () => {
+    const result = await NetworkRequest({
+      Url: "account/getUsdt",
+      Method: "get",
+    });
+    if (result.success) {
+      setAccountUsdt(result.data.data);
+    }
+  };
+  const initData = async () => {
+    const result = await NetworkRequest({
+      Url: "deposit/info",
+      Method: "get",
+    });
+    if (result.success) {
+      setChfpInfo(result.data.data);
+    }
+  };
+  const initUserData = async () => {
+    const result = await ContractRequest({
+      tokenName: "investment",
+      methodsName: "users",
+      params: [walletAddress],
+    });
+    console.log("result---", result);
+    if (result.value) {
+      setUserInfo({
+        principal: result.value[0],
+        maxRevenue: result.value[1],
+        rate: result.value[2],
+        cycleStart: result.value[3],
+        insurancePaid: result.value[4],
+        investment: result.value[5],
+      });
+      if (result.value[0] > 0n) {
+        isOperationWindowFn();
+      }
+    }
+  };
+  /**
+   * 理财是否可以点击
+   */
+  const isOperationWindowFn = async () => {
+    const result = await ContractRequest({
+      tokenName: "investment",
+      methodsName: "isOperationWindow",
+      params: [walletAddress],
+    });
+    console.log("result--", result);
+    if (result.value) {
+      setIsOperation(result.value);
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
   return (
     <div className="ChfpPage">
       <HeaderTop title="理财" backgroundColor="#000"></HeaderTop>
@@ -87,35 +223,54 @@ const Chfp: React.FC = () => {
             </div>
           </div>
           <div className="AmountOption">
-            <span className="num">0.00</span>
+            <span className="num">
+              {fromWei(userInfo?.principal + userInfo?.investment, 18)}
+            </span>
             <span className="amountType">USDT</span>
           </div>
-          <div className="btnBox">开启智能理财</div>
-          <div className="btnList">
-            <Button className="btnOne btn" onClick={() => openChfpPopupClick()}>
-              赎回
-            </Button>
-            <Button
-              className="btnTwo btn"
-              onClick={() => redeemPopupShowClick()}
-            >
-              升级本金
-            </Button>
-          </div>
+          {userInfo?.principal == 0n && (
+            <div className="btnBox" onClick={() => openChfpPlusPopupClick()}>
+              开启智能理财
+            </div>
+          )}
+          {userInfo?.principal > 0n && (
+            <div className="btnList">
+              <Button
+                className="btnOne btn"
+                disabled={!isOperation}
+                loading={redeemLoading}
+                onClick={() => redeemPrincipalFn()}
+              >
+                赎回
+              </Button>
+              <Button
+                disabled={!isOperation}
+                className="btnTwo btn"
+                onClick={() => openReinvestmentPopupClick()}
+              >
+                追投
+              </Button>
+              <Button
+                className="btnThree btn"
+                disabled={!isOperation}
+                onClick={() => openChfpPopupClick()}
+              >
+                升级本金
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="reinvestmentBox">
           <div className="headerOption">
-            <div
-              className="leftTxt"
-              onClick={() => openReinvestmentPopupClick()}
-            >
-              追投账户
+            <div className="leftTxt" >
+              充值余额
             </div>
             <div className="rightOption">
               <img src={about} className="aboutIcon"></img>
               <span className="txt">Ai追投已开启</span>
               <Switch
+                value={chfpInfo?.autoAppend}
                 style={{
                   "--checked-color": "#1DD274",
                   "--height": "20px",
@@ -125,21 +280,21 @@ const Chfp: React.FC = () => {
             </div>
           </div>
           <div className="amountOption">
-            <span className="num">0.00</span>
+            <span className="num">{accountUsdt}</span>
             <span className="typeAmount">USDT</span>
           </div>
-          <div className="hintTxt" onClick={()=>openExtractPopupClick()}>
+          <div className="hintTxt" onClick={() => openExtractPopupClick()}>
             开启后每日将自动追投首投金额的10%，直开启后每日将自动追投首投金额的10%，直至追投账户的余额不够为止。
           </div>
           <div className="btnList">
             <Button className="btnOne btn">提取</Button>
-            <Button className="btnTwo btn">充值</Button>
+            <Button className="btnTwo btn" onClick={() => openRechargePopupClick()}>充值</Button>
           </div>
         </div>
         <div className="shouYiLvBox">
           <div className="leftOption">
             <span className="spn1">当前收益率：</span>
-            <span className="spn2">100%</span>
+            <span className="spn2">{userInfo?.rate?.toString() / 100}%</span>
           </div>
           <div className="rightOption" onClick={() => openHintPopupClick()}>
             <span className="spn1">如何提升</span>
@@ -153,23 +308,21 @@ const Chfp: React.FC = () => {
               <span className="usdtTxt">USDT累计收益</span>
             </div>
             <div className="centerBox">
-              <div className="amount">0.00</div>
-              <div className="yesterDay">昨日+0.00</div>
+              <div className="amount">{chfpInfo?.totalYieldUsdtReward}</div>
             </div>
             <div className="endOption">
               <div className="endHintTxt">待领取</div>
-              <div className="endHintNum">0.00</div>
+              <div className="endHintNum">{chfpInfo?.yieldReward}</div>
               <Button className="btnGet">领取</Button>
             </div>
           </div>
           <div className="hzBox">
             <div className="usdtTop">
-              <img src={USDT} className="usdtIcon"></img>
-              <span className="usdtTxt">USDT累计收益</span>
+              <img src={HTOKEN} className="usdtIcon"></img>
+              <span className="usdtTxt">HZ累计收益</span>
             </div>
             <div className="centerBox">
-              <div className="amount">0.00</div>
-              <div className="yesterDay">昨日+0.00</div>
+              <div className="amount">{chfpInfo?.totalYieldHzReward}</div>
             </div>
             <div className="endOption">
               <div className="endHintNums">*自动到账平台账户</div>
@@ -222,6 +375,8 @@ const Chfp: React.FC = () => {
       ></ActivateGoldPopup>
 
       <ChfpPopup
+        principal={userInfo?.principal}
+        insurancePaid={userInfo?.insurancePaid}
         visible={chfpPopupShow}
         closeChange={() => chfpCloseChange()}
       ></ChfpPopup>
@@ -232,15 +387,24 @@ const Chfp: React.FC = () => {
       ></RedeemPopup>
 
       <Reinvestment
+        principal={userInfo?.principal}
         visible={reinvestmentShow}
         closeChange={() => reinvestmentPopupCloseChange()}
       ></Reinvestment>
       <Extract
-      visible={extractShow}
-      closeChange={()=>extractPopupCloseChange()}
-      >
+        visible={extractShow}
+        closeChange={() => extractPopupCloseChange()}
+      ></Extract>
 
-      </Extract>
+      <ChfpPlusPopup
+        visible={chfpPlusShow}
+        closeChange={() => chfpPlusPopupCloseChange()}
+      ></ChfpPlusPopup>
+
+      <RechargePopup
+        visible={rechargeShow}
+        closeChange={() => rechargePopupCloseChange()}
+      ></RechargePopup>
     </div>
   );
 };

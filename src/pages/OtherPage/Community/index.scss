@@ -8,6 +8,170 @@
         padding-top: 60px;
         padding-bottom: 40px;
 
+        .shouYiBox {
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 16px;
+            margin-top: 24px;
+
+            box-sizing: border-box;
+
+            .shouYiTopBox {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .usdtBox {
+                width: 48%;
+                background: #1A1D25;
+                border-radius: 8px;
+                padding: 16px 12px;
+
+                .usdtTop {
+                    display: flex;
+                    align-items: center;
+
+                    .usdtIcon {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .usdtTxt {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .centerBox {
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    margin-top: 12px;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #FFFFFF;
+
+                    .amount {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .yesterDay {
+                        margin-top: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #F8C001;
+                    }
+                }
+
+                .endOption {
+                    margin-top: 16px;
+
+                    .endHintTxt {
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+
+                    .endHintNum {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .btnGet {
+                        margin-top: 12px;
+                        width: 100%;
+                        height: 40px;
+                        background: rgba(255, 255, 255, 0.25);
+                        border-radius: 20px;
+                    }
+                }
+            }
+
+            .hzBox {
+                width: 100%;
+                background: #1A1D25;
+                border-radius: 8px;
+                padding: 16px 12px;
+
+                .usdtTop {
+                    display: flex;
+                    align-items: center;
+
+                    .usdtIcon {
+                        width: 24px;
+                        height: 24px;
+                    }
+
+                    .usdtTxt {
+                        margin-left: 4px;
+                        font-weight: 400;
+                        font-size: 14px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .centerBox {
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    margin-top: 12px;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #FFFFFF;
+
+                    .amount {
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #FFFFFF;
+                    }
+
+                    .yesterDay {
+                        margin-top: 4px;
+                        font-weight: 400;
+                        font-size: 12px;
+                        color: #F8C001;
+                    }
+                }
+
+                .endOption {
+                    margin-top: 16px;
+
+                    .endHintNums {
+                        font-weight: 400;
+                        font-size: 14px;
+                        margin-bottom: 40px;
+                        color: rgba(255, 255, 255, 0.45);
+                    }
+
+                    .btnList {
+                        width: 100%;
+                        height: 40px;
+                        color: #fff;
+                        background: none;
+                        border-radius: 20px;
+                    }
+
+                    .btnSuccess {
+                        background: linear-gradient(270deg, #1DD274 0%, #2064F5 100%);
+                    }
+                }
+            }
+
+            .shouYiListOption {
+                margin-top: 14px;
+                text-align: center;
+                line-height: 40px;
+                height: 40px;
+                color: #fff;
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+            }
+        }
+
         .CommunityHeaderTopBox {
             display: flex;
             align-items: center;
@@ -41,6 +205,10 @@
                     font-weight: 500;
                     font-size: 16px;
                     color: #F8C001;
+                    white-space: nowrap;
+                    /* 不换行 */
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
 
@@ -164,6 +332,10 @@
                 font-weight: 500;
                 font-size: 14px;
                 color: rgba(255, 255, 255, 0.45);
+
+                .spn {
+                    color: #F8C001;
+                }
             }
 
             .shareList {
@@ -177,13 +349,14 @@
                     color: rgba(255, 255, 255, 0.45);
 
                     .walletAddress {
-                        width: 32%;
+                        width: 40%;
                         text-align: left;
                     }
 
                     .joinTime {
-                        text-align: center;
-                        width: 32%;
+                        text-align: left;
+                        width: 28%;
+                        
                     }
 
                     .usdtAmount {
@@ -205,12 +378,12 @@
                         align-items: center;
 
                         .walletAddress {
-                            width: 32%;
+                            width: 40%;
                             text-align: left;
                         }
 
                         .joinTime {
-                            text-align: center;
+                            text-align: left;
 
                             width: 32%;
 

@@ -1,7 +1,13 @@
 import "./index.scss";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Totast, getMask, fromWei, toWei } from "@/Hooks/Utils.ts";
+import {
+  Totast,
+  getMask,
+  fromWei,
+  toWei,
+  formatAddress,
+} from "@/Hooks/Utils.ts";
 import LogoIcon from "@/assets/Basic/LogoIcon.png";
 import walletBlock from "@/assets/Basic/walletBlock.png";
 import duanKai from "@/assets/Basic/duanKai.png";
@@ -15,16 +21,29 @@ import sheQu from "@/assets/Draw/sheQu.png";
 import hash from "@/assets/Home/hash.png";
 import close from "@/assets/Basic/close.png";
 import { Button } from "antd";
+import { storage } from "@/Hooks/useLocalStorage";
+import NetworkRequest from "@/Hooks/NetworkRequest.ts";
+
 interface MenuType {
   label: string;
   url: string;
 }
+interface userInfo {
+  convertLimit: number;
+  debris: number;
+  hz: number;
+  integral: number;
+  usdt: number;
+}
 const menuList: MenuType[] = [];
-
 const Menu: React.FC<{
   visible: boolean;
   onClose: () => void;
 }> = ({ visible, onClose }) => {
+  const [isSignLoading, setIsSignLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const walletAddress = storage.get("address");
+  const [userInfo, setUserInfo] = useState<userInfo>();
   const timeTokenTitleList = [
     "关于我们",
     "哈哈哈哈",
@@ -35,29 +54,59 @@ const Menu: React.FC<{
   const toolsPage = [
     {
       label: "理财",
-      path: "",
+      path: "/Chfp",
       icon: liCai,
     },
     {
       label: "哈希竞猜",
-      path: "",
+      path: "/Hash",
       icon: hash,
     },
     {
       label: "闪兑",
-      path: "",
+      path: "/FlashExchange",
       icon: shanDui,
     },
     {
       label: "社区",
-      path: "",
+      path: "/Community",
       icon: sheQu,
     },
   ];
-  const walletAddress = userAddress().address;
+  const initData = async () => {
+    const result = await NetworkRequest({
+      Url: "account/asset",
+      Method: "get",
+    });
+    if (result.success) {
+      setUserInfo(result.data.data);
+    }
+  };
+  const toolPageClick = (item) => {
+    if (!walletAddress) return Totast("未登录", "info");
+    onClose();
+    navigate(item.path);
+  };
+
+  const signFn = async () => {
+    setIsSignLoading(true);
+    try {
+      const result = await NetworkRequest({
+        Url: "user/sign",
+        Method: "get",
+      });
+      if (result.success) {
+        Totast("签到成功", "success");
+      }
+    } catch (error) {
+    } finally {
+      setIsSignLoading(false);
+    }
+  };
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
     if (visible != "hidden") {
+      initData();
     }
   }, [visible]);
   return (
@@ -70,7 +119,11 @@ const Menu: React.FC<{
               <div className="icon"></div>
               <div className="txt">简体中文</div>
             </div>
-            <img src={close} className="closeIcon" onClick={()=>onClose()}></img>
+            <img
+              src={close}
+              className="closeIcon"
+              onClick={() => onClose()}
+            ></img>
           </div>
         </div>
         <div className="walletBox">
@@ -78,13 +131,13 @@ const Menu: React.FC<{
             <div className="walletIconOption">
               <img src={walletBlock} className="walletIcon"></img>
             </div>
-            <div className="walletAddress">0x1232q123</div>
+            <div className="walletAddress">{formatAddress(walletAddress)}</div>
           </div>
           <img src={duanKai} className="duanKai"></img>
         </div>
         <div className="blanceOfBox">
           <div className="topHeaderOption">
-            <div className="leftOption">
+            <div className="leftOption" onClick={() => navigate("/Asset")}>
               <span className="txt">我的资产</span>
               <img src={rightIcon} className="rightIcon"></img>
             </div>
@@ -92,19 +145,21 @@ const Menu: React.FC<{
               <img src={openEye} className="openEye"></img>
             </div>
           </div>
-          <div className="endOption">$ 37,285.09</div>
+          <div className="endOption">
+            <span>USDT:${userInfo?.usdt}</span> <span>HZ:{userInfo?.hz}</span>
+          </div>
         </div>
         <div className="toolsBox">
           <div className="toolItem">
-            <div className="num">800</div>
+            <div className="num">{userInfo?.integral}</div>
             <div className="txt">积分</div>
-            <Button className="btn qianDao">每日钱包</Button>
+            <Button className="btn qianDao" onClick={()=>signFn()} loading={isSignLoading}>每日签到</Button>
           </div>
 
           <div className="toolItem">
-            <div className="num">23</div>
+            <div className="num">{userInfo?.debris}</div>
             <div className="txt">NFT碎片</div>
-            <Button className="btn heCheng">合成</Button>
+            <Button className="btn heCheng" onClick={()=>navigate('/Nft')}>合成</Button>
           </div>
         </div>
         <div className="tokenListBox">
@@ -116,7 +171,11 @@ const Menu: React.FC<{
           <div className="toolsPage">
             {toolsPage.map((item, index) => {
               return (
-                <div className="toolPageOption" key={index}>
+                <div
+                  className="toolPageOption"
+                  key={index}
+                  onClick={() => toolPageClick(item)}
+                >
                   <div className="leftOption">
                     <img src={item.icon} className="leftIcon"></img>
                     <span className="txt">{item.label}</span>

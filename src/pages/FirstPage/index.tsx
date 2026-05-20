@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import LogoIcon from "@/assets/Basic/LogoIcon.png";
 const FirstPage: React.FC = () => {
+   const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
-        
+        navigate('/home')
     },2000);
   }, []);
   return (
