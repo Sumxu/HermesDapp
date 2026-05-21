@@ -5,8 +5,28 @@ import { Input } from "antd";
 import { Switch, Button, ProgressCircle } from "antd-mobile";
 import ruleDown from "@/assets/Guessing/ruleDown.png";
 import ruleEx from "@/assets/Guessing/ruleEx.png";
+import NetworkRequest from "@/Hooks/NetworkRequest.ts";
+interface lotteryConfig {
+  odds: number; //倍数
+  minAmount: number; //最小投注
+  maxAmount: number; //最大投注
+  giveDebris: number; //投入多少可获得nft碎片
+}
 const GameRule: React.FC = () => {
-  useEffect(() => {}, []);
+  const [lotteryConfig, setLotteryConfig] = useState<lotteryConfig>();
+
+  const initConfig = async () => {
+    const result = await NetworkRequest({
+      Url: "lottery/config",
+      Method: "post",
+    });
+    if (result.success) {
+      setLotteryConfig(result.data.data);
+    }
+  };
+  useEffect(() => {
+    initConfig();
+  }, []);
   return (
     <div className="GameRulePage">
       <HeaderTop title="游戏规则" backgroundColor="#000"></HeaderTop>
@@ -16,7 +36,7 @@ const GameRule: React.FC = () => {
           <div className="contentTopOption"></div>
           <div className="txtOption">币安链开奖取值规则</div>
           <div className="txtsOption">
-            开奖由每局的区块哈希值决定，系统每隔20
+            开奖由每局的区块哈希值决定，系统每隔20个区块
           </div>
           <div className="txtsTwoOption">币安链区块哈希值</div>
           <div className="txtsTwoOption">最后1位数字作为游戏开</div>
@@ -27,10 +47,13 @@ const GameRule: React.FC = () => {
           <div className="title">赔率及限额</div>
           <div className="ruleHintTxt">
             <div className="hintLabel">
-              赔率:<span className="spn">1:1.9</span>
+              赔率:<span className="spn">1:{lotteryConfig?.odds}</span>
             </div>
             <div className="hintLabel">
-              限额:<span className="spn">10-15000HZ</span>
+              限额:
+              <span className="spn">
+                {lotteryConfig?.minAmount}-{lotteryConfig?.maxAmount}HZ
+              </span>
             </div>
           </div>
           <div className="title">游戏规则</div>
@@ -47,9 +70,9 @@ const GameRule: React.FC = () => {
 
           <div className="title">关于奖励</div>
           <div className="ruleHintTxt">
-            <div className="hintLabel">1.猜对了将获得190%的HZ</div>
+            <div className="hintLabel">1.猜对了将获得{lotteryConfig?.odds*100}%的HZ</div>
             <div className="hintLabel">
-              2.猜错了，参与金额≥200，则获得1枚NFT碎片（20张碎片可以合成一张NFT）；参与金额＜200，没有任何奖励
+              2.猜错了，参与金额≥{lotteryConfig?.giveDebris}，则获得1枚NFT碎片（20张碎片可以合成一张NFT）；参与金额＜{lotteryConfig?.giveDebris}，没有任何奖励
             </div>
           </div>
 

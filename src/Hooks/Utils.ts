@@ -1,5 +1,6 @@
 import { message } from "antd";
 import axios from "axios";
+import EnvManager from "@/config/EnvManager.ts";
 import {
   Wallet,
   parseUnits,
@@ -12,6 +13,51 @@ export interface ParsedWallet {
   privateKey: string;
   address?: string;
   tag?: string;
+}
+export async function hashResult(hash: string) {
+  // 取最后5位
+  const lastFive = hash.slice(-10);
+
+  console.log("最后5位:", lastFive);
+
+  // 分割数组
+  const arr = lastFive.split("");
+
+  console.log("数组:", arr);
+
+  // 倒序找到最后一个数字
+  const target = [...arr].reverse().find((item) => !isNaN(Number(item)));
+  const lastNumberIndex = arr.findLastIndex((item) => !isNaN(Number(item)));
+  if (target) {
+    const type = Number(target) % 2 === 0 ? "双" : "单";
+    return {
+      arr: arr,
+      number: lastNumberIndex,
+      type,
+    };
+  }
+}
+/**
+ * 获取当前区块信息
+ */
+export async function getAsgetBlockByNumber(number) {
+  const provider = new ethers.JsonRpcProvider(EnvManager.rpcUrl);
+  // 获取区块号
+  const block = await provider.getBlock(number);
+  // 获取当前区块号
+  return block;
+}
+
+/**
+ * 获取当前区块信息
+ */
+export async function asgetBlockNumber() {
+  const provider = new ethers.JsonRpcProvider(EnvManager.rpcUrl);
+  // 获取当前区块号
+  const blockNumber = await provider.getBlockNumber();
+  const block = await provider.getBlock(blockNumber);
+  // 获取当前区块号
+  return block;
 }
 export function getLastChars(str, n) {
   if (!str) return "";

@@ -24,7 +24,8 @@ import ContractRequest from "@/Hooks/ContractRequest.ts";
 import { storage } from "@/Hooks/useLocalStorage.ts";
 import { fromWei } from "@/Hooks/Utils.ts";
 import ContractSend from "@/Hooks/ContractSend.ts";
-
+import { Spin } from "antd";
+import { useNavigate } from "react-router-dom";
 interface chfpInfo {
   totalYieldUsdtReward: number; //usdt累计收益
   totalYieldHzReward: number; //hz累计收益
@@ -39,11 +40,20 @@ interface userInfo {
   insurancePaid: bigint; //激活金
   investment: bigint; //追投资金
 }
+interface listItem {
+  amount: number; //额度
+  createTime: string; //创建时间
+  coinType: number; //代币类型 1.usdt 2.hz
+}
 const Chfp: React.FC = () => {
+  const navigate = useNavigate();
+  const [pageLoading, setPageLoading] = useState<boolean>(false);
   const [accountUsdt, setAccountUsdt] = useState<number>(0);
   const walletAddress = storage.get("address");
+  const [list, setList] = useState<listItem[]>([]);
   const [userInfo, setUserInfo] = useState<userInfo>();
   const [chfpInfo, setChfpInfo] = useState<chfpInfo>();
+  const [switchLoading, setSwitchLoading] = useState<boolean>(false);
   const [redeemLoading, setRedeemLoading] = useState<boolean>(false);
   const [hintPopupShow, setHintPopupShow] = useState<boolean>(false);
   const [rulePopupShow, setRulePopupShow] = useState<boolean>(false);
@@ -56,7 +66,7 @@ const Chfp: React.FC = () => {
   const [isOperation, setIsOperation] = useState<boolean>(false); //是否可以点击
   const [activateGoldPopupShow, setActivateGoldPopupShow] =
     useState<boolean>(false);
-
+  const [yieldRewardLoading, setYieldRewardLoading] = useState<boolean>(false);
   const chfpPlusPopupCloseChange = () => {
     setChfpPlusShow(false);
     init();
@@ -77,6 +87,7 @@ const Chfp: React.FC = () => {
 
   const extractPopupCloseChange = () => {
     setExtractShow(false);
+    init();
   };
 
   const openExtractPopupClick = () => {
@@ -101,6 +112,7 @@ const Chfp: React.FC = () => {
     initUserData();
     initData();
     initAccountUsdt();
+    initListData();
   };
   const hintPopupCloseChange = () => {
     setHintPopupShow(false);
@@ -169,13 +181,52 @@ const Chfp: React.FC = () => {
       setChfpInfo(result.data.data);
     }
   };
+  const initListData = async () => {
+    const result = await NetworkRequest({
+      Url: "bill/yield",
+      Method: "post",
+      Data: {
+        size: 10,
+        current: 1,
+        // coinType: "",
+      },
+    });
+    if (result.success) {
+      setList(result.data.data.records);
+    }
+  };
+  const switchChange = async (e) => {
+    console.log("e--", e);
+    try {
+      setSwitchLoading(true);
+      //判断本金的10%的五天数量是否足够
+      const needAutoAmount = ((userInfo.principal * 10n) / 100n) * 5n;
+      if (toWei(accountUsdt.toString(), 18) < needAutoAmount) {
+        setSwitchLoading(false);
+        return Totast("账户余额不足以开通", "error");
+      }
+      const result = await NetworkRequest({
+        Url: "deposit/updateAuto",
+        Method: "get",
+        Data: {
+          flag: e,
+        },
+      });
+      if (result.success) {
+        Totast(`${e ? "开启成功" : "关闭成功"}`, "success");
+        init();
+      }
+    } catch (error) {
+    } finally {
+      setSwitchLoading(false);
+    }
+  };
   const initUserData = async () => {
     const result = await ContractRequest({
       tokenName: "investment",
       methodsName: "users",
       params: [walletAddress],
     });
-    console.log("result---", result);
     if (result.value) {
       setUserInfo({
         principal: result.value[0],
@@ -204,7 +255,22 @@ const Chfp: React.FC = () => {
       setIsOperation(result.value);
     }
   };
-
+  const claimClick = async () => {
+    try {
+      setYieldRewardLoading(true);
+      const result = await NetworkRequest({
+        Url: "deposit/claim",
+        Method: "get",
+      });
+      if (result.success) {
+        Totast("领取成功", "success");
+        init();
+      }
+    } catch (error) {
+    } finally {
+      setYieldRewardLoading(false);
+    }
+  };
   useEffect(() => {
     init();
   }, []);
@@ -217,10 +283,10 @@ const Chfp: React.FC = () => {
             <div className="leftTxtOption" onClick={() => openActivateClick()}>
               理财账户
             </div>
-            <div className="rightOption" onClick={() => openRulePopupClick()}>
+            {/* <div className="rightOption" onClick={() => openRulePopupClick()}>
               <span className="txt">规则说明</span>
               <img src={query} className="queryIcon"></img>
-            </div>
+            </div> */}
           </div>
           <div className="AmountOption">
             <span className="num">
@@ -263,14 +329,14 @@ const Chfp: React.FC = () => {
 
         <div className="reinvestmentBox">
           <div className="headerOption">
-            <div className="leftTxt" >
-              充值余额
-            </div>
+            <div className="leftTxt">账户余额</div>
             <div className="rightOption">
               <img src={about} className="aboutIcon"></img>
               <span className="txt">Ai追投已开启</span>
               <Switch
-                value={chfpInfo?.autoAppend}
+                loading={switchLoading}
+                onChange={(e) => switchChange(e)}
+                checked={chfpInfo?.autoAppend}
                 style={{
                   "--checked-color": "#1DD274",
                   "--height": "20px",
@@ -287,8 +353,18 @@ const Chfp: React.FC = () => {
             开启后每日将自动追投首投金额的10%，直开启后每日将自动追投首投金额的10%，直至追投账户的余额不够为止。
           </div>
           <div className="btnList">
-            <Button className="btnOne btn">提取</Button>
-            <Button className="btnTwo btn" onClick={() => openRechargePopupClick()}>充值</Button>
+            <Button
+              className="btnOne btn"
+              onClick={() => openExtractPopupClick()}
+            >
+              提现
+            </Button>
+            <Button
+              className="btnTwo btn"
+              onClick={() => openRechargePopupClick()}
+            >
+              充值
+            </Button>
           </div>
         </div>
         <div className="shouYiLvBox">
@@ -313,7 +389,14 @@ const Chfp: React.FC = () => {
             <div className="endOption">
               <div className="endHintTxt">待领取</div>
               <div className="endHintNum">{chfpInfo?.yieldReward}</div>
-              <Button className="btnGet">领取</Button>
+              <Button
+                loading={yieldRewardLoading}
+                disabled={chfpInfo?.yieldReward == 0 ? true : false}
+                className={`btnGet ${chfpInfo?.yieldReward == 0 ? "btnNo" : "btnOk"}`}
+                onClick={() => claimClick()}
+              >
+                领取
+              </Button>
             </div>
           </div>
           <div className="hzBox">
@@ -326,14 +409,22 @@ const Chfp: React.FC = () => {
             </div>
             <div className="endOption">
               <div className="endHintNums">*自动到账平台账户</div>
-              <Button className="btnList">记录</Button>
+              <Button
+                className="btnList"
+                onClick={() => navigate("/EarningsList")}
+              >
+                记录
+              </Button>
             </div>
           </div>
         </div>
         <div className="listBox">
           <div className="listHeader">
             <div className="leftTitle">动账记录</div>
-            <div className="rightOption">
+            <div
+              className="rightOption"
+              onClick={() => navigate("/EarningsList")}
+            >
               <div className="rightTxt">更多记录</div>
               <img src={rightIcon} className="rightIcon"></img>
             </div>
@@ -342,21 +433,32 @@ const Chfp: React.FC = () => {
           <div className="listBorder">
             <div className="headerOption">
               <div className="headerItem dateTimeHeader">时间</div>
-              <div className="headerItem accountHeader">账户</div>
               <div className="headerItem typeHeader">类型</div>
               <div className="headerItem amountHeader">金额(USDT)</div>
             </div>
             <div className="listData">
-              <div className="listOption">
-                <div className="dateTime">2026/05/07 18:32:56</div>
-                <div className="account">理财账户</div>
-                <div className="type">赎回</div>
-                <div className="amount error">-200.00</div>
-                <div className="amount success">-200.00</div>
-              </div>
-              <div className="NoDataOption">
-                <NoData />
-              </div>
+              {pageLoading && (
+                <div className="assetDetailSpinBox">
+                  <Spin />
+                </div>
+              )}
+              {!pageLoading && list.length == 0 ? (
+                <div className="NoDataOption">
+                  <NoData />
+                </div>
+              ) : (
+                list.map((item, index) => {
+                  return (
+                    <div className="listOption" key={index}>
+                      <div className="dateTime">{item.createTime}</div>
+                      <div className="type">
+                        {item.coinType == 1 ? "USDT" : "HZ"}
+                      </div>
+                      <div className="amount success">{item.amount}</div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

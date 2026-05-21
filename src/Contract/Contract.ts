@@ -4,6 +4,7 @@ import Erc20ABI from "./ABI/Erc20.ts";
 import InvestmentABI from "./ABI/InvestmentABI.ts";
 import MultiCallABI from "./ABI/MultiCallABI.ts";
 import SwapRouterABI from "./ABI/SwapRouterABI.ts";
+import PricePoolABI from "./ABI/PricePoolABI.ts";
 import { Router } from "react-router-dom";
 
 interface ContractItem {
@@ -22,6 +23,10 @@ const Contract: ContractMap = {
   investment: {
     address: EnvManager.investment,
     abi: InvestmentABI,
+  },
+  PricePoolABI: {
+    address: EnvManager.prize,
+    abi: PricePoolABI,
   },
   prize: {
     address: EnvManager.prize,

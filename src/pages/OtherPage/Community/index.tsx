@@ -78,7 +78,7 @@ const Community: React.FC = () => {
     setCurrent(nexPage);
     await NetworkRequest({
       Url: "team/invitations",
-      Method: "get",
+      Method: "post",
       Data: {
         current: nexPage,
         size: 10,
@@ -175,7 +175,7 @@ const Community: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="shouYiListOption" onClick={()=>navigate('/')}>记录</div>
+          <div className="shouYiListOption" onClick={()=>navigate('/TeamList')}>记录</div>
         </div>
         <div className="myShareBox">
           <div className="shareTitle">我的推荐</div>

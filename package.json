@@ -46,7 +46,8 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^7.7.1",
     "viem": "^2.48.2",
-    "zustand": "^5.0.5"
+    "zustand": "^5.0.5",
+    "klinecharts": "^9.8.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

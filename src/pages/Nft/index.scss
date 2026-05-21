@@ -69,6 +69,7 @@
         .nftListBox {
             margin-top: 12px;
             display: flex;
+            width: 100%;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
@@ -81,7 +82,6 @@
                 border-radius: 8px;
 
                 .img {
-                    background: skyblue;
                     width: 165px;
                     height: 180px;
                     border-top-left-radius: 8px;

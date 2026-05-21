@@ -7,11 +7,17 @@ import NoData from "@/components/NoData";
 import NetworkRequest from "@/Hooks/NetworkRequest.ts";
 import { InfiniteScroll } from "antd-mobile";
 import { Spin } from "antd";
+import { Totast } from "@/Hooks/Utils";
 
 interface listItem {
   name: string;
   img: string;
   number: string;
+}
+interface Compound {
+  name: string; //名称
+  img: string; //图片
+  number: string; //编号
 }
 const Nft: React.FC = () => {
   const [nftNum, setNftNum] = useState<number>(0); //nft数量
@@ -22,11 +28,14 @@ const Nft: React.FC = () => {
   const [total, setTotal] = useState<number>(0);
   const [isMore, setIsMore] = useState<boolean>(false);
   const [pageLoading, setPageLoading] = useState<boolean>(false);
-
+  const [compoundResult, setCompoundResult] = useState<Compound>();
   const [synthesisSuccessPopupShow, setSynthesisSuccessPopupShow] =
     useState<boolean>(false);
 
   const openSynthesisPopupClick = () => {
+    if(nftNum<20){
+      return Totast('NFT碎片不足','info')
+    }
     setSynthesisPopupShow(true);
   };
   const synthesisPopupCloseChange = () => {
@@ -50,6 +59,7 @@ const Nft: React.FC = () => {
     }
   };
   const initList = async () => {
+    setList([])
     const result = await NetworkRequest({
       Url: "nft/list",
       Method: "post",
@@ -58,10 +68,8 @@ const Nft: React.FC = () => {
         current: 1,
       },
     });
-    console.log("result-=-", result);
     if (result.success) {
       setList((prevList) => [...prevList, ...result.data.data.records]);
-      console.log("list--", list);
       setTotal(result.data.data.total);
       if (result.data.data.records.length == 10) {
         setIsMore(true);
@@ -91,6 +99,11 @@ const Nft: React.FC = () => {
       }
     });
     setPageLoading(false);
+  };
+  const successChange = (data) => {
+    setSynthesisPopupShow(false);
+    setCompoundResult(data);
+    openSynthesisSuccessPopupClick();
   };
   useEffect(() => {
     initData();
@@ -127,22 +140,24 @@ const Nft: React.FC = () => {
                 <Spin />
               </div>
             )}
+            
             {!pageLoading && list.length == 0 ? (
               <NoData />
             ) : (
               list.map((item, index) => {
                 return (
                   <div className="nftItem" key={index}>
-                    <div className="img"></div>
+                    <img src={item.img} className="img"></img>
                     <div className="endInfo">
                       <div className="endOption">
-                        <div className="leftTitle">Hhhh</div>
+                        <div className="leftTitle">{item.name}</div>
                       </div>
-                      <div className="numOption">#000102312312</div>
+                      <div className="numOption">#{item.number}</div>
                     </div>
                   </div>
                 );
               })
+              
             )}
           </div>
           <InfiniteScroll
@@ -152,10 +167,12 @@ const Nft: React.FC = () => {
         </div>
       </div>
       <SynthesisPopup
+        successChange={(data) => successChange(data)}
         visible={synthesisPopupShow}
         closeChange={() => synthesisPopupCloseChange()}
       ></SynthesisPopup>
       <SynthesisSuccessPopup
+        info={compoundResult}
         visible={synthesisSuccessPopupShow}
         closeChange={() => synthesisSuccessPopupCloseChange()}
       ></SynthesisSuccessPopup>

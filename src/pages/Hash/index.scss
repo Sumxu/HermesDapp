@@ -13,7 +13,9 @@
 
     .HashContentPage {
         padding-top: 70px;
-
+        .sliderBox{
+            margin-top: 12px;
+        }
         .hashPlayBox {
             padding-top: 24px;
             padding-inline: 16px;
@@ -199,7 +201,7 @@
                 align-items: center;
 
                 .leftOption {
-                    width: 40%;
+                    width: 50%;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -230,7 +232,7 @@
                         .endNum {
                             margin-left: 4px;
                             font-weight: 500;
-                            font-size: 14px;
+                            font-size: 12px;
                             color: #FFFFFF;
                         }
 
@@ -271,7 +273,8 @@
                     }
 
                     .endOption {
-                        width: 125px;
+                        padding-inline: 4px;
+                        // width: 125px;
                         height: 28px;
                         margin-top: 4px;
                         border-radius: 4px;
@@ -345,6 +348,7 @@
                     right: 0;
                     top: 38px;
                     z-index: 999;
+                    animation: dropdownAnimation 0.25s ease;
 
                     .headerTopOption {
                         height: 50px;
@@ -389,6 +393,10 @@
                             .num {
                                 width: 25%;
                                 text-align: center;
+                                .spnTxt{
+                                    color: #F8C001;
+                                }
+                                color: #fff;
                             }
 
                             .btnBlock {
@@ -413,6 +421,19 @@
                     }
 
                 }
+            }
+        }
+
+        // 关键帧
+        @keyframes dropdownAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px) scaleY(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scaleY(1);
             }
         }
 
@@ -526,9 +547,10 @@
             padding-inline: 60px;
             font-size: 16px;
             color: #FFFFFF;
-            line-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 40px;
-            text-align: center;
         }
     }
 }

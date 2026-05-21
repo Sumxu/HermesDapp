@@ -4,10 +4,12 @@ import { Mask } from "antd-mobile";
 import closeIcon from "@/assets/Basic/close.png";
 interface SynthesisSuccessPopupProps {
   visible: boolean;
+  info: {};
   closeChange: () => void;
 }
 const SynthesisSuccessPopup: React.FC<SynthesisSuccessPopupProps> = ({
   visible,
+  info,
   closeChange,
 }) => {
   useEffect(() => {}, []);
@@ -16,13 +18,12 @@ const SynthesisSuccessPopup: React.FC<SynthesisSuccessPopupProps> = ({
       <div className="SynthesisSuccessPopupPage">
         <div className="SynthesisSuccessPopupContent">
           <div className="cardSuccessBox">
-            <div className="img"></div>
+            <img src={info?.img} className="img" />
             <div className="endInfo">
               <div className="endInfoTop">
-                <div className="leftTxt">HEMRES</div>
-                <div className="rightType1">普通</div>
+                <div className="leftTxt">{info?.name}</div>
               </div>
-              <div className="endInfoEnd">#00563178</div>
+              <div className="endInfoEnd">#{info?.number}</div>
             </div>
           </div>
           <div className="btnBox" onClick={() => closeChange()}>

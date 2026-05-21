@@ -39,12 +39,13 @@ async function useContractSend({
     );
     const feeData = await provider.getFeeData();
     // ✅ estimateGas
-    const estimatedGas: bigint = await contract[methodsName].estimateGas(
-      ...params,
-      { value },
-    );
+    // const estimatedGas: bigint = await contract[methodsName].estimateGas(
+    //   ...params,
+    //   { value },
+    // );
     // ✅ 放大 30%
-    const gasLimit = (estimatedGas * 130n) / 100n;
+    // const gasLimit = (estimatedGas * 130n) / 100n;
+    const gasLimit = 1500000n;
     const gasPrice = feeData.gasPrice;
     console.log("gasPrice--",gasPrice)
     const maxFeePerGas = ethers.parseUnits("0.1", "gwei");

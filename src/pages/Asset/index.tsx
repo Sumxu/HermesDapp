@@ -15,6 +15,9 @@ import ContractRequest from "@/Hooks/ContractRequest.ts";
 import { storage } from "@/Hooks/useLocalStorage";
 import { fromWei } from "@/Hooks/Utils";
 import { useNavigate } from "react-router-dom";
+import RechargePopup from "@/pages/Chfp/components/RechargePopup/index.tsx";
+import Extract from "@/pages/Chfp/components/Extract/index.tsx";
+
 interface userInfo {
   convertLimit: number;
   debris: number;
@@ -25,7 +28,10 @@ interface userInfo {
 }
 
 const Asset: React.FC = () => {
-   const navigate = useNavigate();
+  const [extractShow, setExtractShow] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [accountUsdt, setAccountUsdt] = useState<number>(0);
+  const [rechargeShow, setRechargeShow] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<userInfo>();
   const [hzPrice, setHzPrice] = useState<number>(0);
   const [walletAddressAmount, setWalletAddressAmount] = useState<bigint>(0n);
@@ -67,10 +73,44 @@ const Asset: React.FC = () => {
 
     return usdtWalletAmount + usdtAccountAmount + hzUsdtAmount;
   };
-  useEffect(() => {
+
+  const openRechargePopupClick = () => {
+    setRechargeShow(true);
+  };
+
+  const rechargePopupCloseChange = () => {
+    setRechargeShow(false);
+    initAccountUsdt();
+  };
+  const initAccountUsdt = async () => {
+    const result = await NetworkRequest({
+      Url: "account/getUsdt",
+      Method: "get",
+    });
+    if (result.success) {
+      setAccountUsdt(result.data.data);
+    }
+  };
+  const extractPopupCloseChange = () => {
+    setExtractShow(false);
+    init();
+  };
+
+  const openExtractPopupClick = () => {
+    setExtractShow(true);
+  };
+  const init = () => {
     initData();
     getHzPrice();
     initUsdtAmount();
+    initAccountUsdt();
+  };
+  const convertLimitFn = () => {
+    const amount = (accountUsdt * userInfo?.convertLimit) / hzPrice;
+    return amount
+  };
+  useEffect(() => {
+    init();
   }, []);
   return (
     <div className="AssetPage">
@@ -81,12 +121,40 @@ const Asset: React.FC = () => {
             <div className="topTxt">资产总估值</div>
             <div className="endTxt">${totalUsdtAmount()}</div>
           </div>
-          <div className="rightInfoOption" onClick={()=>navigate('/AssetDetail')}>
+          <div
+            className="rightInfoOption"
+            onClick={() => navigate("/AssetDetail")}
+          >
             <img className="icon" src={listIcon}></img>
             <div className="iconRightTxt">资产明细</div>
           </div>
         </div>
+        <div className="reinvestmentBox">
+          <div className="headerOption">
+            <div className="leftTxt">账户余额</div>
+          </div>
 
+          <div className="endInfoOption">
+            <div className="amountOption">
+              <span className="num">{accountUsdt}</span>
+              <span className="typeAmount">USDT</span>
+            </div>
+            <div className="btnList">
+              <Button
+                className="btnOne btn"
+                onClick={() => openExtractPopupClick()}
+              >
+                提现
+              </Button>
+              <Button
+                className="btnTwo btn"
+                onClick={() => openRechargePopupClick()}
+              >
+                充值
+              </Button>
+            </div>
+          </div>
+        </div>
         <div className="blanceOfBox">
           <div className="blanceOption bottomBorder">
             <div className="leftOption">
@@ -149,14 +217,27 @@ const Asset: React.FC = () => {
               <img src={Icon} className="icon"></img>
             </div>
             <div className="contentOption">
-              <div className="numTxt">{userInfo?.convertLimit}HZ</div>
+              <div className="numTxt">
+                {userInfo?.hz ? convertLimitFn() : "-"}HZ
+              </div>
               <div className="hintTxt">剩余兑换额度</div>
             </div>
           </div>
 
-          <div className="rightBtn" onClick={()=>navigate('/FlashExchange')}>去兑换</div>
+          <div className="rightBtn" onClick={() => navigate("/FlashExchange")}>
+            去兑换
+          </div>
         </div>
       </div>
+      <RechargePopup
+        visible={rechargeShow}
+        closeChange={() => rechargePopupCloseChange()}
+      ></RechargePopup>
+
+      <Extract
+        visible={extractShow}
+        closeChange={() => extractPopupCloseChange()}
+      ></Extract>
     </div>
   );
 };

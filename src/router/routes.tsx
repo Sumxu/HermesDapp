@@ -14,6 +14,7 @@ const Hash = lazy(() => import("@/pages/Hash/index"));
 const GameRule = lazy(() => import("@/pages/Hash/GameRule/index"));
 const JoinList = lazy(() => import("@/pages/Hash/JoinList/index"));
 const AwardList = lazy(() => import("@/pages/Hash/AwardList/index"));
+const TeamList = lazy(() => import("@/pages/TeamList/index"));
 export const routes = [
   { path: "/", element: <Navigate to="/FirstPage" replace /> },
   { path: "/FirstPage", element: <FirstPage /> },
@@ -30,4 +31,5 @@ export const routes = [
   { path: "/GameRule", element: <GameRule /> },
   { path: "/JoinList", element: <JoinList /> },
   { path: "/AwardList", element: <AwardList /> },
+  { path: "/TeamList", element: <TeamList /> },
 ];

@@ -6,17 +6,17 @@ import { Switch, Picker } from "antd-mobile";
 import sanJiaoXing from "@/assets/Basic/sanJiaoXing.png";
 import { Spin } from "antd";
 import { InfiniteScroll } from "antd-mobile";
-import NoData from "@/components/NoData";
 import { storage } from "@/Hooks/useLocalStorage";
-
+import NoData from "@/components/NoData";
 import NetworkRequest from "@/Hooks/NetworkRequest.ts";
 interface listItem {
   amount: string; //额度
   createTime: string; //加入时间
-  bizType: number; //类型 1.充值 2.提现 3.领取收益 4.闪兑 6.自动追投 7.参与竞猜
+  bizType: number; //类型 1.代数奖励 2.等级奖励 3.平级奖励 4.全球分红 5.直推奖励
+  type: number; //类型 1.产出收益 2.竞猜收益 3.提现收益
   coinType: number; //代币类型 1.usdt 2.hz
 }
-const AssetDetail: React.FC = () => {
+const TeamList: React.FC = () => {
   const typeList = [
     {
       label: "USDT",
@@ -28,12 +28,16 @@ const AssetDetail: React.FC = () => {
     },
   ];
   const bizTypeMap = {
-    1: "充值",
-    2: "提现",
-    3: "领取收益",
-    4: "闪兑",
-    6: "自动追投",
-    7: "参与竞猜",
+    1: "代数奖励",
+    2: ".等级奖励",
+    3: "平级奖励",
+    4: "全球分红",
+    5: "直推奖励",
+  };
+  const typeMap = {
+    1: "产出收益",
+    2: ".竞猜收益",
+    3: "提现收益",
   };
   const [checkType, setCheckType] = useState<string>("1");
   const [list, setList] = useState<listItem[]>([]);
@@ -46,7 +50,7 @@ const AssetDetail: React.FC = () => {
     setList([]);
     setPageLoading(true);
     const result = await NetworkRequest({
-      Url: "bill/account",
+      Url: "bill/team",
       Method: "post",
       Data: {
         size: 10,
@@ -72,7 +76,7 @@ const AssetDetail: React.FC = () => {
     const nexPage = current + 1;
     setCurrent(nexPage);
     await NetworkRequest({
-      Url: "bill/account",
+      Url: "bill/team",
       Method: "post",
       Data: {
         current: nexPage,
@@ -99,8 +103,8 @@ const AssetDetail: React.FC = () => {
     initList(1);
   }, []);
   return (
-    <div className="AssetDetailPage">
-      <HeaderTop title="资产明细" backgroundColor="#000"></HeaderTop>
+    <div className="TeamListPage">
+      <HeaderTop title="团队收益" backgroundColor="#000"></HeaderTop>
       <div className="contentPage">
         <div className="tabBox">
           <div className="tabOption">
@@ -120,7 +124,8 @@ const AssetDetail: React.FC = () => {
         <div className="listContent">
           <div className="listHeader">
             <div className="leftTxt itemTxtDate">时间</div>
-            <div className="leftTxt rightTxtLeft">类型</div>
+            <div className="leftTxt rightTxtLeft">来源类型</div>
+            <div className="leftTxt rightTxtLeft">业务类型</div>
             <div className="rightTxt">金额</div>
           </div>
           {pageLoading && (
@@ -135,9 +140,8 @@ const AssetDetail: React.FC = () => {
               return (
                 <div className="listItem" key={index}>
                   <div className="itemTxtDate">{item.createTime}</div>
-                  <div className="itemTxt txtType">
-                    {bizTypeMap[item.bizType]}
-                  </div>
+                  <div className="itemTxt txtType">{bizTypeMap[item.bizType]}</div>
+                  <div className="itemTxt txtType">{typeMap[item.type]}</div>
                   <div className="itemTxt rightTxt">{item.amount}</div>
                 </div>
               );
@@ -152,4 +156,4 @@ const AssetDetail: React.FC = () => {
     </div>
   );
 };
-export default AssetDetail;
+export default TeamList;
