@@ -19,12 +19,13 @@ import RechargePopup from "@/pages/Chfp/components/RechargePopup/index.tsx";
 import Extract from "@/pages/Chfp/components/Extract/index.tsx";
 
 interface userInfo {
-  convertLimit: number;
+  convertRate: number;
   debris: number;
   hz: number;
   integral: number;
   usdt: number;
   nft: number;
+  yieldRward: number;
 }
 
 const Asset: React.FC = () => {
@@ -71,7 +72,7 @@ const Asset: React.FC = () => {
     const usdtAccountAmount = userInfo?.usdt || 0;
     const hzUsdtAmount = calculateUsdt(userInfo?.hz || 0);
 
-    return usdtWalletAmount + usdtAccountAmount + hzUsdtAmount;
+    return (usdtWalletAmount + usdtAccountAmount + hzUsdtAmount).toFixed(4);
   };
 
   const openRechargePopupClick = () => {
@@ -106,8 +107,8 @@ const Asset: React.FC = () => {
     initAccountUsdt();
   };
   const convertLimitFn = () => {
-    const amount = (accountUsdt * userInfo?.convertLimit) / hzPrice;
-    return amount
+    const amount = hzPrice/(userInfo?.yieldReward * userInfo?.convertRate) ;
+    return amount.toFixed(4);
   };
   useEffect(() => {
     init();
@@ -218,7 +219,7 @@ const Asset: React.FC = () => {
             </div>
             <div className="contentOption">
               <div className="numTxt">
-                {userInfo?.hz ? convertLimitFn() : "-"}HZ
+                {userInfo?.yieldReward ? convertLimitFn() : "-"}HZ
               </div>
               <div className="hintTxt">剩余兑换额度</div>
             </div>

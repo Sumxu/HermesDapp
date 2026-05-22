@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./index.scss";
 import { Popup, Switch, Button } from "antd-mobile";
 import { Input } from "antd";
@@ -27,7 +27,7 @@ const ChfpPopup: React.FC<ChfpPopupProps> = ({
   const [aiAmount, setAiAmount] = useState<string>("");
   const [isOpenAi, setIsOpenAi] = useState<boolean>(false);
   const [walletAddressAmount, setWalletAddressAmount] = useState<bigint>(0n);
-
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
   const initUsdtAmount = async () => {
     const result = await ContractRequest({
       tokenName: "USDTToken",
@@ -81,10 +81,17 @@ const ChfpPopup: React.FC<ChfpPopupProps> = ({
   };
   const jiHuoAmountChange = (e) => {
     setJiHuoAmount(e);
-    const ruleResult = ruleAmount(e);
-    if (!ruleResult.status) {
-      Totast(ruleResult.txt, "error");
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
     }
+    // 防抖
+    debounceRef.current = setTimeout(() => {
+      const ruleResult = ruleAmount(e);
+
+      if (!ruleResult.status) {
+        Totast(ruleResult.txt, "error");
+      }
+    }, 500);
   };
   const needPayAmount = () => {
     return toWei(jiHuoAmount || "0", 18) - principal;
@@ -144,7 +151,7 @@ const ChfpPopup: React.FC<ChfpPopupProps> = ({
       const result = await ContractSend({
         tokenName: "investment",
         methodsName: "upgrade",
-        params: [toWei(jiHuoAmount,18)],
+        params: [toWei(jiHuoAmount, 18)],
       });
       if (result.value) {
         Totast("升级成功", "success"); // 检查授权或者授权时发生了错误，请检查网络后重新尝试
@@ -206,7 +213,7 @@ const ChfpPopup: React.FC<ChfpPopupProps> = ({
               placeholder="请输入"
               className="inputClass"
               value={jiHuoAmount}
-              onChange={(e) => jiHuoAmountChange(e.target.value)}
+              onInput={(e) => jiHuoAmountChange(e.target.value)}
             ></Input>
             <span className="typeAmount">USDT</span>
           </div>

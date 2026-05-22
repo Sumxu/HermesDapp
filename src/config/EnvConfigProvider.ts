@@ -19,11 +19,11 @@ export default class EnvConfigProvider {
   /** 开发环境配置（测试网） */
   static getDevConfig(): EnvConfig {
     return {
-      apiBase: "http://192.168.31.231:7331/",
+      apiBase: "https://v1.zerolink.top/dapp/",
       SwapRouter: "0xD99D1c33F9fC3444f8101754aBC46c52416550D1",
       contractUsdt: "0x2Cba653C50e9A2e97411104d1460EBFAECE50E9C",
       investment: "0x1d8118aDa8dcbC792FBbCDf8BeeD82241AE40aeF", //竞猜
-      prize: "0x17f21faF09c5152E1cbEe34FA54eD6eB2fe4629B", //代币地址
+      prize: "0x7446c989be40A9a2A4Be81227FCb0e95d1a4C283", //代币地址
       multiCallToken: "0xcA11bde05977b3631167028862bE2a173976CA11",
       chainId: "0x61",
       rpcUrl: "https://bsc-testnet-rpc.publicnode.com/",

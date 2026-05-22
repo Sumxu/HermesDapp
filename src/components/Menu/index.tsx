@@ -14,6 +14,7 @@ import duanKai from "@/assets/Basic/duanKai.png";
 import { userAddress } from "@/Store/Store.ts";
 import openEye from "@/assets/Draw/openEye.png";
 import rightIcon from "@/assets/Draw/rightIcon.png";
+import language from "@/assets/Basic/language.png";
 import newToken from "@/assets/Draw/newToken.png";
 import liCai from "@/assets/Draw/liCai.png";
 import shanDui from "@/assets/Draw/shanDui.png";
@@ -45,11 +46,7 @@ const Menu: React.FC<{
   const walletAddress = storage.get("address");
   const [userInfo, setUserInfo] = useState<userInfo>();
   const timeTokenTitleList = [
-    "关于我们",
-    "哈哈哈哈",
-    "哈哈哈哈",
-    "哈哈哈哈",
-    "哈哈哈哈",
+    
   ];
   const toolsPage = [
     {
@@ -97,11 +94,18 @@ const Menu: React.FC<{
       });
       if (result.success) {
         Totast("签到成功", "success");
+        initData();
       }
     } catch (error) {
     } finally {
       setIsSignLoading(false);
     }
+  };
+  const logOutClick = () => {
+    storage.set("sign", null);
+    storage.set("address", null);
+    onClose()
+    navigate("/home");
   };
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
@@ -116,7 +120,7 @@ const Menu: React.FC<{
           <img src={LogoIcon} className="logoIcon"></img>
           <div className="rightOption">
             <div className="rightBlock">
-              <div className="icon"></div>
+              <img src={language} className="icon"></img>
               <div className="txt">简体中文</div>
             </div>
             <img
@@ -133,7 +137,11 @@ const Menu: React.FC<{
             </div>
             <div className="walletAddress">{formatAddress(walletAddress)}</div>
           </div>
-          <img src={duanKai} className="duanKai"></img>
+          <img
+            src={duanKai}
+            className="duanKai"
+            onClick={() => logOutClick()}
+          ></img>
         </div>
         <div className="blanceOfBox">
           <div className="topHeaderOption">
@@ -153,13 +161,21 @@ const Menu: React.FC<{
           <div className="toolItem">
             <div className="num">{userInfo?.integral}</div>
             <div className="txt">积分</div>
-            <Button className="btn qianDao" onClick={()=>signFn()} loading={isSignLoading}>每日签到</Button>
+            <Button
+              className="btn qianDao"
+              onClick={() => signFn()}
+              loading={isSignLoading}
+            >
+              每日签到
+            </Button>
           </div>
 
           <div className="toolItem">
             <div className="num">{userInfo?.debris}</div>
             <div className="txt">NFT碎片</div>
-            <Button className="btn heCheng" onClick={()=>navigate('/Nft')}>合成</Button>
+            <Button className="btn heCheng" onClick={() => navigate("/Nft")}>
+              合成
+            </Button>
           </div>
         </div>
         <div className="tokenListBox">

@@ -133,7 +133,6 @@ const Chfp: React.FC = () => {
     setHintPopupShow(true);
   };
   const openChfpPopupClick = () => {
-    console.log("userInfo?.principal--", userInfo?.principal);
     if (userInfo?.principal == toWei("1000", 18)) {
       return Totast("已经最大等级!", "error");
     }
@@ -387,7 +386,15 @@ const Chfp: React.FC = () => {
               <div className="amount">{chfpInfo?.totalYieldUsdtReward}</div>
             </div>
             <div className="endOption">
-              <div className="endHintTxt">待领取</div>
+              <div className="endHintTxt">
+                待领取
+                <Button
+                  className="flashExchangeBtn"
+                  onClick={() => navigate("/FlashExchange")}
+                >
+                  去兑换
+                </Button>
+              </div>
               <div className="endHintNum">{chfpInfo?.yieldReward}</div>
               <Button
                 loading={yieldRewardLoading}

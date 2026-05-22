@@ -43,7 +43,7 @@ const ExtractPopup: React.FC<ExtractPopupProps> = ({
   const allAmountChange = () => {
     setJiHuoAmount(accountUsdt.toString());
     const hzAmount = calcHzFee(accountUsdt, hzPrice, withDrawConfig?.fee);
-    setBenJinAmount(hzAmount.toString());
+    setBenJinAmount(hzAmount.toFixed(4));
   };
   const initAccountUsdt = async () => {
     const result = await NetworkRequest({
@@ -83,7 +83,7 @@ const ExtractPopup: React.FC<ExtractPopupProps> = ({
   const jiHuoAmountChange = (e) => {
     setJiHuoAmount(e);
     const hzAmount = calcHzFee(e, hzPrice, withDrawConfig?.fee);
-    setBenJinAmount(hzAmount.toString());
+    setBenJinAmount(hzAmount.toFixed(4));
   };
   const sumbitClick = async () => {
     //判断输入的余额是否足够

@@ -10,15 +10,24 @@ import NetworkRequest from "@/Hooks/NetworkRequest.ts";
 import { Spin } from "antd";
 import { InfiniteScroll } from "antd-mobile";
 import NoData from "@/components/NoData";
-import { init, dispose } from "klinecharts";
+import KlineChart from "./components/KlineChart";
+import { Totast } from "@/Hooks/Utils";
 interface listItem {
   createTime: string; //加入时间
   amountA: number; // 代币A
   amountB: number; //代币B
   type: number; //交易对 1.usdt/hz 2.hz/usdt
 }
+interface userBalance {
+  usdt: number; //账户余额（u）
+  hz: number; //账户余额（hz）
+  yieldReward: number; //产出收益(usdt)
+  convertRate: number; //兑换额度百分比
+  swapFee: number; //兑换手续费
+}
 const FlashExchange: React.FC = () => {
-  const chartRef = useRef<HTMLDivElement>(null);
+  const [userBalance, setUserBalance] = useState<userBalance>();
+  const [checkType, setCheckType] = useState<number>(1); //1 usdt 2hz
   const [hzPrice, setHzPrice] = useState<number>(0);
   const [accountUsdt, setAccountUsdt] = useState<number>(0);
   const [accountHz, setAccountHz] = useState<number>(0);
@@ -27,7 +36,9 @@ const FlashExchange: React.FC = () => {
   const [total, setTotal] = useState<number>(0);
   const [isMore, setIsMore] = useState<boolean>(false);
   const [pageLoading, setPageLoading] = useState<boolean>(false);
-
+  const [inputAmount, setInputAmount] = useState<string>("");
+  const [swapAmount, setSwapAmount] = useState<string>("");
+  const [btnLoading, setBtnLoading] = useState<boolean>(false);
   const loadMoreAction = async () => {
     const nexPage = current + 1;
     setCurrent(nexPage);
@@ -50,12 +61,19 @@ const FlashExchange: React.FC = () => {
     });
     setPageLoading(false);
   };
-
   const initData = async () => {
     getHzPrice();
-    initAccountUsdt();
-    initAccountHz();
     initListData();
+    initBalance();
+  };
+  const initBalance = async () => {
+    const result = await NetworkRequest({
+      Url: "convert/getBalance",
+      Method: "get",
+    });
+    if (result.success) {
+      setUserBalance(result.data.data);
+    }
   };
   const initListData = async () => {
     setList([]);
@@ -80,23 +98,30 @@ const FlashExchange: React.FC = () => {
     }
     setPageLoading(false);
   };
-  const initAccountHz = async () => {
-    const result = await NetworkRequest({
-      Url: "account/getHz",
-      Method: "get",
-    });
-    if (result.success) {
-      setAccountHz(result.data.data);
+  const inputChange = (e, type) => {
+    console.log("e---", e);
+    console.log("type---", type);
+    let amount = 0;
+    if (type == 1) {
+      //usdt->hz
+      amount = Number(e) / hzPrice;
+    } else {
+      //hz->usdt
+      amount = Number(e) * hzPrice;
     }
+    setInputAmount(e);
+    setSwapAmount(amount.toFixed(4));
   };
-  const initAccountUsdt = async () => {
-    const result = await NetworkRequest({
-      Url: "account/getUsdt",
-      Method: "get",
-    });
-    if (result.success) {
-      setAccountUsdt(result.data.data);
-    }
+  /**
+   * 手续费
+   */
+  const serviceCharge = () => {
+    return inputAmount * userBalance?.swapFee;
+  };
+
+  const checkTypeChange = (e) => {
+    setCheckType(e == 1 ? 2 : 1);
+    inputChange(inputAmount, e == 1 ? 2 : 1);
   };
   const getHzPrice = async () => {
     const result = await NetworkRequest({
@@ -108,54 +133,43 @@ const FlashExchange: React.FC = () => {
       setHzPrice(result.data.data || 0);
     }
   };
-  const getKlineData = async () => {
-    const result = await NetworkRequest({
-      Url: "convert/kline",
-      Method: "get",
-    });
-    console.log(result);
-  };
-  useEffect(() => {
-    if (!chartRef.current) return;
-    // 初始化
-   const chart = init(chartRef.current, {
-  styles: {
-    candle: {
-      tooltip: {
-        showRule: "none",
-      },
-    },
-  },
-});
-    console.log(chart);
-  
-    // K线数据
-    chart?.applyNewData([
-      {
-        timestamp: Date.now(),
-        open: 100,
-        high: 120,
-        low: 90,
-        close: 110,
-        volume: 1000,
-      },
-    ]);
-
-    // 自适应
-    const resize = () => {
-      chart?.resize();
-    };
-
-    window.addEventListener("resize", resize);
-
-    return () => {
-      window.removeEventListener("resize", resize);
-      if (chart) {
-        dispose(chart);
+  const submitClick = async () => {
+    //判断兑换的余额是否足够
+    //hz->usdt 额度是否足够
+    if (checkType == 2) {
+      if (userBalance?.hz < inputAmount) {
+        return Totast("账号HZ余额不足", "info");
       }
-    };
-  }, []);
+    } else {
+      //判断额度是否足够
+      if (convertLimitFn() < inputAmount) {
+        return Totast("HZ兑换额度余额不足", "info");
+      }
+      if (userBalance?.yieldReward < inputAmount) {
+        return Totast("账号余额不足", "info");
+      }
+    }
+    setBtnLoading(true);
 
+    const result = await NetworkRequest({
+      Url: "convert/swap",
+      Method: "post",
+      Data: {
+        type: checkType,
+        amount: inputAmount,
+      },
+    });
+    if (result.success) {
+      Totast("兑换成功!", "info");
+    }
+    setBtnLoading(false);
+    initData();
+  };
+  const convertLimitFn = () => {
+    const amount =
+     hzPrice/ (userBalance?.yieldReward * userBalance?.convertRate) ;
+    return amount.toFixed(4);
+  };
   useEffect(() => {
     initData();
   }, []);
@@ -163,77 +177,123 @@ const FlashExchange: React.FC = () => {
     <div className="FlashExchangePage">
       <HeaderTop title="闪兑" backgroundColor="#000"></HeaderTop>
       <div className="FlashExchangeBox">
-        <div className="hintTxtBox">兑换比例 1.00 USDT≈{hzPrice}</div>
+        <div className="hintTxtBox">兑换比例 1.00 HZ≈{hzPrice} USDT</div>
         <div className="duiHuanOption">
           <div className="inputOption">
             <div className="inputHeader">
               <span className="spn">用</span>
               <div className="rightDiv">
-                <span className="rightTxt">账户余额:</span>
-                <span className="amountTxt">{accountUsdt}USDT</span>
+                <span className="rightTxt">
+                  {checkType == 1 ? "产出收益" : "账户余额"}
+                </span>
+                <span className="amountTxt">
+                  {checkType == 1 ? userBalance?.yieldReward : userBalance?.hz}
+                  {checkType == 1 ? "USDT" : "HZ"}
+                </span>
               </div>
             </div>
             <div className="inputBox">
               <div className="inputTxtBlock">
-                <img src={USDT} className="icon"></img>
-                <span className="spn">USDT</span>
+                <img
+                  src={checkType == 1 ? USDT : HTOKEN}
+                  className="icon"
+                ></img>
+                <span className="spn">{checkType == 1 ? "USDT" : "HZ"}</span>
               </div>
               <div className="inputOption">
-                <Input placeholder="0.00" className="inputClass"></Input>
+                <Input
+                  placeholder="请输入"
+                  value={inputAmount}
+                  onChange={(e) => inputChange(e.target.value, checkType)}
+                  className="inputClass"
+                ></Input>
               </div>
             </div>
           </div>
         </div>
-        <img src={topEnd} className="topEndIcon"></img>
+        <img
+          src={topEnd}
+          className="topEndIcon"
+          onClick={() => checkTypeChange(checkType)}
+        ></img>
         <div className="duiHuanOption">
           <div className="inputOption">
             <div className="inputHeader">
               <span className="spn">兑换</span>
               <div className="rightDiv">
                 <span className="rightTxt">余额:</span>
-                <span className="amountTxt">{accountHz}HZ</span>
+                <span className="amountTxt">
+                  {checkType == 2 ? userBalance?.usdt : userBalance?.hz}
+                  {checkType == 2 ? "HZ" : "USDT"}
+                </span>
               </div>
             </div>
             <div className="inputBox">
               <div className="inputTxtBlock">
-                <img src={HTOKEN} className="icon"></img>
-                <span className="spn">HZ</span>
+                <img
+                  src={checkType == 1 ? HTOKEN : USDT}
+                  className="icon"
+                ></img>
+                <span className="spn">{checkType == 1 ? "HZ" : "USDT"}</span>
               </div>
               <div className="inputOption">
-                <Input placeholder="0.00" className="inputClass"></Input>
+                <Input
+                  placeholder="请输入"
+                  value={swapAmount}
+                  onChange={(e) => setSwapAmount(e.target.value)}
+                  className="inputClass"
+                ></Input>
               </div>
             </div>
           </div>
         </div>
         <div className="txtBox">
           <div className="txtOption">
-            <div className="leftTxt">手续费（5%）:</div>
-            <div className="rightTxt">0.00 USDT</div>
+            <div className="leftTxt">手续费（{userBalance?.swapFee}%）:</div>
+            <div className="rightTxt">
+              {inputAmount ? serviceCharge() : "-"}{" "}
+              {checkType == 1 ? "USDT" : "HZ"}
+            </div>
           </div>
           <div className="txtOption">
             <div className="leftTxt">需支付:</div>
-            <div className="rightTxt">0.00 USDT</div>
+            <div className="rightTxt">
+              {inputAmount ? serviceCharge() : "-"}{" "}
+              {checkType == 1 ? "USDT" : "HZ"}
+            </div>
           </div>
           <div className="txtOption">
             <div className="leftTxt">实际到账</div>
-            <div className="rightTxt">0.00 HZ</div>
+            <div className="rightTxt">
+              {swapAmount ? swapAmount : "-"} {checkType == 1 ? "USDT" : "HZ"}
+            </div>
           </div>
         </div>
         <div className="btnsHintBox">
           <div className="btnItem">
-            <div className="btnItemTop">2,800.00 HZ</div>
-            <div className="btnItemEnd">剩余兑换额度</div>
+            <div className="btnItemTop">
+              {userBalance?.yieldReward ? convertLimitFn() : "-"}HZ
+            </div>
+            <div className="btnItemEnd">剩余兑换HZ额度</div>
           </div>
 
           <div className="btnItem">
-            <div className="btnItemTop rightTxt">0.00 USDT</div>
+            <div className="btnItemTop rightTxt">
+              {inputAmount || "-"} {checkType == 1 ? "USDT" : "HZ"}
+            </div>
             <div className="btnItemEnd">需支付</div>
           </div>
         </div>
-        <Button className="flashBtnBox">确认兑换</Button>
+        <Button
+          className="flashBtnBox"
+          onClick={() => submitClick()}
+          loading={btnLoading}
+        >
+          确认兑换
+        </Button>
 
         <div className="chartBox">
-          <div ref={chartRef} className="chartOption" />;
+          <KlineChart height={340}></KlineChart>
         </div>
         <div className="listHint">最近记录</div>
         <div className="listBox">
