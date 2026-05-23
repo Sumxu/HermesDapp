@@ -91,7 +91,15 @@ const Home: React.FC = () => {
   };
   const initLogin = () => {
     setInviteShow(false);
-    setWalletAddress(storage.get("address"));
+
+    const walletAddress = userAddress.getState().address;
+    if (walletAddress) {
+      setWalletAddress(walletAddress);
+    } else {
+      setWalletAddress("");
+      storage.set("sign", null);
+      storage.set("address", null);
+    }
   };
   const sendChange = () => {};
   // 授权登录
@@ -174,6 +182,8 @@ const Home: React.FC = () => {
       setWalletAddress(userAddress.getState().address);
       storage.set("address", userAddress.getState().address);
       storage.set("sign", result.data.data);
+    } else {
+      setIsBindLoading(false);
     }
   };
   useEffect(() => {

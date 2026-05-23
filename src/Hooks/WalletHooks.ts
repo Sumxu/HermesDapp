@@ -79,6 +79,8 @@ export async function ensureWalletConnected(navigate): Promise<boolean> {
 
   if (accounts.length > 0) {
     setAddress(accounts[0]);
+    localStorage.setItem("address", accounts[0]);
+
   }
 
   if (currentChainId.toLowerCase() !== BNB_PARAMS.chainId) {
